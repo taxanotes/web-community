@@ -1,0 +1,36 @@
+diff --git a/templates/forum-access-table.html.twig b/templates/forum-access-table.html.twig
+index 1d12faa..557dc94 100644
+--- a/templates/forum-access-table.html.twig
++++ b/templates/forum-access-table.html.twig
+@@ -2,21 +2,28 @@
+     {% if form.header %}
+         <thead>
+         <tr>
+-            {% for key, column in form.header if key|first != '#' %}
++            {% for key, column in form.header %}
++              {% if key|first != '#' %}
+                 <th>
+                     {{- column }}
+                 </th>
++              {% endif %}
+             {% endfor %}
+         </tr>
+         </thead>
+     {% endif %}
+-    {% for key, column in form.rows if key|first != '#' %}
++    {% for key, column in form.rows %}
++       {% if key|first != '#' %}
+         <tr>
+-            {% for key2, column2 in column if key2|first != '#' %}
++            {% for key2, column2 in column %}
++              {% if key2|first != '#' %}
+                 <td>
+                     {{- column2 }}
+                 </td>
++              {% endif %}
+             {% endfor %}
+         </tr>
++       {% endif %}
+     {% endfor %}
+ </table>
++
