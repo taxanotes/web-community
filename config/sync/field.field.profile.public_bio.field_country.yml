@@ -1,0 +1,22 @@
+uuid: 23ffff31-0d1f-4bf7-8764-8ef862729723
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_country
+    - profile.type.public_bio
+  module:
+    - address
+id: profile.public_bio.field_country
+field_name: field_country
+entity_type: profile
+bundle: public_bio
+label: Country
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+field_type: address_country

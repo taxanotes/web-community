@@ -1,0 +1,12 @@
+uuid: a602d324-6b64-4672-bfe2-864ce8fed11d
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_help
+id: help_search
+label: Help
+path: help
+weight: 0
+plugin: help_search
+configuration: {  }

@@ -1,0 +1,24 @@
+uuid: 5762acc9-9a66-4d07-bda8-adcce79b89b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - node.type.forum
+    - node.type.page
+  module:
+    - file
+    - node
+id: member
+label: Member
+weight: 4
+is_admin: null
+permissions:
+  - 'create article content'
+  - 'create forum content'
+  - 'create page content'
+  - 'delete own files'
+  - 'delete own forum content'
+  - 'delete own page content'
+  - 'edit own forum content'
+  - 'view forum revisions'

@@ -1,0 +1,21 @@
+uuid: fa1a87fe-090b-4ab2-9e0b-cd19726a6528
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_location
+    - profile.type.public_bio
+  module:
+    - geolocation
+id: profile.public_bio.field_location
+field_name: field_location
+entity_type: profile
+bundle: public_bio
+label: Location
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation
