@@ -1,0 +1,31 @@
+uuid: 899e33e7-15e3-47ab-b64d-7f052e8aa21d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.profile.public_bio.field_country
+    - field.field.profile.public_bio.field_location
+    - profile.type.public_bio
+  module:
+    - address
+    - geolocation
+id: profile.public_bio.default
+targetEntityType: profile
+bundle: public_bio
+mode: default
+content:
+  field_country:
+    type: address_country_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_location:
+    type: geolocation_latlng
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

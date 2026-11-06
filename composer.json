@@ -1,6 +1,6 @@
 {
     "name": "drupal/recommended-project",
-    "description": "Project template for Drupal projects with a relocated document root",
+    "description": "The Taxanotes community site (taxanotes.org): Drupal 11 with a relocated document root",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "homepage": "https://www.drupal.org/project/drupal",
@@ -16,21 +16,23 @@
     ],
     "require": {
         "composer/installers": "^2.0",
-        "cweagans/composer-patches": "^1.7",
-        "drupal/address": "^1.11",
-        "drupal/core-composer-scaffold": "^10.0",
-        "drupal/core-project-message": "^10.0",
-        "drupal/core-recommended": "^10.0",
-        "drupal/forum": "^1.0",
-        "drupal/forum_access": "^1.0@beta",
-        "drupal/geolocation": "^3.12",
-        "drupal/mailsystem": "^4.4",
-        "drupal/profile": "^1.7",
-        "drupal/seven": "^1.0",
-        "drupal/smtp": "^1.2",
-        "drupal/social_auth_facebook": "^4.0",
-        "drupal/social_auth_google": "^4.0",
-        "drush/drush": "^11.5"
+        "drupal/acl": "^2.0",
+        "drupal/address": "^2.0",
+        "drupal/core-composer-scaffold": "^11.4",
+        "drupal/core-project-message": "^11.4",
+        "drupal/core-recommended": "^11.4",
+        "drupal/forum": "^1.1",
+        "drupal/forum_access": "^2.0",
+        "drupal/geolocation": "^3.15",
+        "drupal/jquery_ui": "^1.8",
+        "drupal/jquery_ui_autocomplete": "^2.1",
+        "drupal/jquery_ui_menu": "^2.1",
+        "drupal/mailsystem": "^4.5",
+        "drupal/profile": "^1.16",
+        "drupal/smtp": "^1.4",
+        "drupal/social_auth_facebook": "^4.0.4",
+        "drupal/social_auth_google": "^4.0.3",
+        "drush/drush": "^13"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -44,7 +46,7 @@
             "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "cweagans/composer-patches": true
+            "symfony/runtime": true
         },
         "sort-packages": true
     },
@@ -103,14 +105,6 @@
                 "  * Remove the plugin that prints this message:",
                 "      composer remove drupal/core-project-message"
             ]
-        },
-        "enable-patching": true,
-        "patches": {
-            "drupal/forum_access": 
-               { 
-                  "Forum access table template breaks on Drupal 10. Fix for 8.x-1.0-beta1":
-                  "web/modules/patches/forum_access-issue-3333087-comment-6-15043297-template-breaks-on-drupal-10.patch"
-               }
         }
     }
 }

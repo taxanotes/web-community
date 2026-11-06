@@ -1,0 +1,29 @@
+uuid: 1dbc73eb-c600-4e0f-b162-c664b0c6f8b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.map_of_city_town_for_each_member
+  module:
+    - system
+    - views
+  theme:
+    - olivero
+id: views_block__map_of_city_town_for_each_member
+theme: olivero
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:map_of_city_town_for_each_member-map_of_city_town_for_each_member_block'
+settings:
+  id: 'views_block:map_of_city_town_for_each_member-map_of_city_town_for_each_member_block'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: '48'
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

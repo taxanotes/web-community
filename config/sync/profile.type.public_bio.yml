@@ -1,0 +1,15 @@
+uuid: c5396faf-f3d8-42c8-8126-68c5866979a0
+langcode: en
+status: true
+dependencies: {  }
+id: public_bio
+label: 'Public Bio'
+display_label: ''
+multiple: true
+registration: true
+roles:
+  content_editor: content_editor
+  administrator: administrator
+  member: member
+allow_revisions: false
+new_revision: false
