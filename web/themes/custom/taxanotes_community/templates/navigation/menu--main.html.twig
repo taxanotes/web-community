@@ -7,10 +7,12 @@
  * js/menu-state.js marks the current section and page; the CSS is in
  * css/menu-common.css, menu-desktop.css, menu-mobile.css and menu-focus.css.
  *
- * A parent that has a page of its own leads the panel with a link to it
- * (span.first-link); a parent without one (route:<nolink>, as taxanotes.org's
- * sections are) leads it with a plain heading instead. All its children are
- * listed below either way.
+ * As on The Solent Metropolitan, the panel's first row (span.first-link) is a
+ * link: the parent's own page when it has one, otherwise its first child
+ * (taxanotes.org's sections are route:<nolink>, so each leads with its first
+ * child, e.g. "Community home", "Introduction", "Roadmap"). The remaining
+ * children follow in a grid; a section with a single child shows just that
+ * one link.
  *
  * The Search item is not a menu link: the theme's preprocess sets
  * search_item when the Search module is on, and the template appends a
@@ -95,18 +97,23 @@
 
 {% macro submenu(item) %}
   {% set nolink = item.url.routed and item.url.routeName == '<nolink>' %}
+  {% if nolink %}
+    {% set lead = item.below|first %}
+    {% set rest = item.below|slice(1) %}
+  {% else %}
+    {% set lead = item %}
+    {% set rest = item.below %}
+  {% endif %}
   <div class="sub-menu-container hidden-2l animated">
     <div class="sub-menu-items-outer-container">
-      {% if nolink %}
-        <span class="sub-menu-item first-link sub-menu-heading">{{ item.title }}</span>
-      {% else %}
-        <span class="sub-menu-item first-link">{{ link(item.title, item.url, { 'class': ['first-link'] }) }}</span>
+      <span class="sub-menu-item first-link">{{ link(lead.title, lead.url, { 'class': ['first-link'] }) }}</span>
+      {% if rest is not empty %}
+        <ul class="sub-menu-item-container">
+          {% for child in rest %}
+            <li{{ child.attributes }}><span class="sub-menu-item">{{ link(child.title, child.url) }}</span></li>
+          {% endfor %}
+        </ul>
       {% endif %}
-      <ul class="sub-menu-item-container">
-        {% for child in item.below %}
-          <li{{ child.attributes }}><span class="sub-menu-item">{{ link(child.title, child.url) }}</span></li>
-        {% endfor %}
-      </ul>
     </div>
   </div>
 {% endmacro %}
