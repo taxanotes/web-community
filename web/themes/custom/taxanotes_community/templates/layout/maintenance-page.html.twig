@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Theme override to display a single Drupal page while offline.
+ *
+ * All available variables are mirrored in page.html.twig.
+ * Some may be blank but they are provided for consistency.
+ *
+ * @see template_preprocess_maintenance_page()
+ */
+#}
+{# A standalone page: no menu and no footer blocks are available while the
+   site is in maintenance mode, so it carries its own header band. Styled in
+   css/system-pages.css (.txn-maintenance). The message itself is the one
+   set at Configuration → Development → Maintenance mode. #}
+<div class="txn-maintenance">
+  <header class="txn-maintenance__header" role="banner">
+    {% if logo %}
+      <img src="{{ logo }}" alt="{{ site_name }}"/>
+    {% elseif site_name %}
+      <div class="txn-maintenance__name">{{ site_name }}</div>
+    {% endif %}
+  </header>
+  <main class="txn-maintenance__main" role="main">
+    <h1 class="txn-maintenance__title">{{ title ?: 'Back shortly'|t }}</h1>
+    <div class="txn-maintenance__box">
+      {{ page.highlighted }}
+      {{ page.content }}
+    </div>
+  </main>
+  <footer class="txn-maintenance__footer" role="contentinfo">
+    {{ site_name }}
+  </footer>
+</div>

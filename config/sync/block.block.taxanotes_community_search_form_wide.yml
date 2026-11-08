@@ -1,0 +1,23 @@
+uuid: a7889a2b-a73f-4993-934e-6692d7e9e4bb
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - taxanotes_community
+_core:
+  default_config_hash: imMyHD6LYci0gtXq56qr9ZKGHzbEG9uFydrN5EhKtSU
+id: taxanotes_community_search_form_wide
+theme: taxanotes_community
+region: search
+weight: 0
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (wide)'
+  label_display: '0'
+  provider: search
+  page_id: null
+visibility: {  }

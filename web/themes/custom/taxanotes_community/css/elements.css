@@ -1,0 +1,84 @@
+:root {
+  /* Brand colours. --brand is the dark green of the header band, the menu
+     bar and the footer (white text on it is 7.9:1); --brand-light is the
+     green of the Taxanotes mark (#2e7d32 until a brand green is chosen);
+     --accent marks the current page and underlines links (5.8:1 on white);
+     --hover-tint is the pale green that text and chevrons turn on hover on
+     the dark green bar (8:1 on --brand). */
+  --brand: #1b5e20;
+  --brand-light: #2e7d32;
+  --brand-pale: #e8f3e9;
+  --accent: #b7410e;
+  --accent-dark: #8f3209;
+  --hover-tint: #c5e1a5;
+  --warm-grey: #f5f3f0;
+  --body-bg: #faf9f7;
+  /* Hairline that still shows on the page background (--warm-grey itself is
+     1.05:1 on #faf9f7, invisible as a rule). */
+  --rule-soft: #ddd8d0;
+  --text: #1a1a1a;
+  --text-mid: #444444;
+  /* The open desktop submenu is one white surface: strip, item and button. */
+  --submenu-bg: #fff;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  /* The width of the content column: header, menu, submenu, content and
+     footer all align to it. One token, read as var(--container-max, 1200px)
+     wherever 1200px used to be written. It grows with the window from
+     1200px (window up to 1280px) to 1360px (window from 1456px), holding
+     40px gutters in between. 100vw here is only an input to min()/max()
+     that is subtracted from an element's own width, never a width itself,
+     so the scrollbar causes no horizontal scroll; it has to be a viewport
+     unit and not a percentage, so that every user of the token gets the
+     same answer whatever its container. */
+  --container-max: min(1360px, max(1200px, 100vw - 6rem));
+
+  /* Left/right alignment floor shared by header, logo, menu, submenu and
+     content, so the tracked alignment is tweaked in one place. */
+  --align-floor: 1em;
+
+  /* Padding of content boxes. */
+  --content-pad: 2rem;
+}
+
+@media (max-width: 799px) {
+  :root {
+    --content-pad: 1.2rem;
+  }
+}
+
+/*
+   Breakpoints used throughout the stylesheets:
+
+   phone (mobile menu):        max-width 799px
+   desktop (menu bar, drawer): min-width 800px
+   desktop large:              min-width 1200px
+*/
+
+.svg-defs {
+  display: none;
+}
+
+body {
+  margin: 0;
+  background-color: var(--body-bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main, .main-container {
+  flex: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

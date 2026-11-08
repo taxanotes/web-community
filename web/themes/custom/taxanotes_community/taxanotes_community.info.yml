@@ -1,0 +1,26 @@
+name: 'Taxanotes community'
+type: theme
+description: 'The theme of taxanotes.org, the Taxanotes community site: the Taxanotes mark and wordmark in a green header band, the expanding main menu (a drawer under the menu bar on desktop, a push-down menu on phones, with keyboard and no-JavaScript fallbacks), the Cabin typeface (SIL OFL, self-hosted). Derived from the customsolent theme of The Solent Metropolitan by the same author; no base theme, the markup is core''s.'
+package: Taxanotes
+core_version_requirement: ^11
+base theme: false
+libraries:
+  - taxanotes_community/global
+# Region machine names follow Olivero's where the role is the same
+# (primary_menu, secondary_menu, highlighted, breadcrumb, content, footer...):
+# when the site switches from Olivero, block_theme_initialize() copies its
+# blocks into the regions of the same name. "content" is first: it is the
+# region a block lands in when its own region does not exist here.
+regions:
+  content: 'Content'
+  logo: 'Logo (header band)'
+  header: 'Header'
+  primary_menu: 'Primary menu (menu bar)'
+  search: 'Search (the form the menu''s Search item opens)'
+  secondary_menu: 'Secondary menu (account links)'
+  highlighted: 'Highlighted (messages)'
+  breadcrumb: 'Breadcrumb'
+  help: 'Help'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer: 'Footer'

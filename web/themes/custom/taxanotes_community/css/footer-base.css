@@ -1,0 +1,23 @@
+.region.region-footer {
+    clear: both;
+}
+
+footer[role="contentinfo"] {
+  background-color: var(--brand);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Desktop: full-width footer background with 1200px constrained content */
+@media screen and (min-width: 800px) {
+  /* Full-width wrapper for footer background color */
+  .footer-full-width-wrapper {
+    width: 100%;
+  }
+
+  /* Constrain footer content to 1200px */
+  .region.region-footer {
+    max-width: var(--container-max, 1200px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * The footer region's blocks (the footer menu, when it has links), to the
+ * right of the mark and name that page.html.twig prints.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region <div>.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ */
+#}
+{% if content %}
+  <div{{ attributes.addClass('txn-footer__blocks') }}>
+    {{ content }}
+  </div>
+{% endif %}

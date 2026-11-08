@@ -1,0 +1,204 @@
+.sub-menu-item-container>li {
+  list-style-type: none;
+}
+
+.main-menu-item-container>li {
+  list-style-type: none;
+}
+
+.sub-menu-item-container a {
+  text-decoration: none;
+}
+
+
+/* https://claude.ai/share/a3ad86c3-2b80-49ad-ae93-c2abcaebed04 */
+
+/*
+.main-menu-item-container>li {
+  cursor: pointer;
+}
+*/
+
+
+.navigation__link__down-icon {
+  fill: black;
+}
+
+.navigation__link--selected .navigation__link__down-icon {
+  transform: rotate(-180deg);
+}
+
+
+.navigation__link__down-icon {
+    margin-bottom: 0;
+    transition: transform .4s ease;
+    display: block;
+    flex-shrink: 0;
+    overflow: visible;
+    stroke: var(--brand);
+}
+
+/*
+button.main_nav_link {
+
+	background: none;
+  
+
+	color: inherit;
+
+
+
+	border: none;
+ 
+	padding: 0;
+
+	font: inherit;
+
+
+
+	cursor: pointer;
+
+
+	outline: inherit;
+
+}
+  */
+
+
+button.main_nav_link,
+a.main_nav_link {
+  /*
+        display: -webkit-flex;
+        display: flex;
+        display: -ms-flex;
+        -webkit-flex-basis: auto;
+        flex-basis: auto;
+
+        -webkit-align-items: center;
+        align-items: center;
+        */
+
+background-color: white;
+
+        	background: none;
+        border: 0;
+        width: auto;
+        height: 100%;
+        padding: 0 12px;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+
+            -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+/* Keyboard a11y (2026-08 brief §5): the old `:focus { outline: none
+   !important }` rule made keyboard focus invisible on main menu items —
+   tabbing "didn't work" because focus moved but couldn't be seen. Focus
+   styling now lives in menu-focus.css using :focus-visible exclusively, so
+   mouse/touch clicks show nothing while keyboard focus shows the orange
+   indicator. */
+
+
+button.main_nav_link,
+a.main_nav_link {
+  font-family: var(--font-family);
+  display: flex;
+  align-items: center;
+}
+
+button.main_nav_link > span {
+  padding-right: 0.2em;
+  color: var(--brand);
+}
+
+
+.sub-menu-container a.first-link {
+    /*padding-inline-start: 40px;*/
+}
+
+    ul.sub-menu-item-container {
+      padding-inline-start: 0px; /* overwrite browser default */
+    }
+
+ul.sub-menu-item-container {
+    padding-top: 0.3em;
+}
+
+
+#txn-header-upper {
+  background-color: var(--brand);
+}
+
+/* Prevent inline baseline gap below logo image */
+#txn-header-upper img {
+  display: block;
+}
+
+/*
+
+PERHAPS dont need to change "top" for mobile. I think so...
+
+https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic
+
+
+https://www.reddit.com/r/reactjs/comments/uznomv/why_does_tapping_on_button_causes_quick_flash_of/
+
+
+https://www.reddit.com/r/reactjs/comments/uznomv/why_does_tapping_on_button_causes_quick_flash_of/
+https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
+
+https://hartenfeller.dev/blog/chrome-mobile-highlight-color
+
+https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit
+
+
+https://stackoverflow.com/questions/51639828/how-to-select-class-and-tag-in-css
+
+*/
+
+div#block-taxanotes_community-sitebranding {
+    display: inline-block;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PROGRESSIVE ENHANCEMENT SWITCHING (2026-08 brief §6)
+   html.html.twig adds class="js" to <html> via an inline script (the Drupal/
+   Olivero pattern) — CSS keys off its presence/absence. With JS: the enhanced
+   menu operates and every no-JS fallback element is hidden. Without JS: the
+   enhanced mobile menu stays collapsed (no hamburger is ever injected), the
+   <details>/<summary> fallback shows at mobile widths (styling in
+   menu-mobile.css), and desktop submenus open via :hover/:focus-within
+   (rules in menu-desktop.css).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Fallback menu: hidden by default (all widths, incl. desktop no-JS) … */
+.mobile-menu-noscript {
+  display: none;
+}
+/* … shown only without JS at mobile widths. */
+@media (max-width: 799px) {
+  html:not(.js) .mobile-menu-noscript {
+    display: block;
+  }
+}
+
+/* Search: the toggle button needs JS. Without JS, hide the button and the
+   dead form panel, and show a plain link to the search page in its place
+   (rendered alongside the button in menu--main.html.twig). */
+html.js .search-nojs-link {
+  display: none;
+}
+html:not(.js) #search-in-menu {
+  display: none;
+}
+html:not(.js) #search-form-container {
+  display: none;
+}

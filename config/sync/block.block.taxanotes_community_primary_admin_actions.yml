@@ -1,0 +1,20 @@
+uuid: 6dd865bb-40ac-4dca-a22e-bef98ef94e75
+langcode: en
+status: true
+dependencies:
+  theme:
+    - taxanotes_community
+_core:
+  default_config_hash: Q9_2whdOj1YIomfvsIfopROW4FT_X5pY0DjdOiOaQ5U
+id: taxanotes_community_primary_admin_actions
+theme: taxanotes_community
+region: content
+weight: -6
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

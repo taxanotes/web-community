@@ -1,0 +1,22 @@
+uuid: 310d5ddb-a311-4e98-be99-cae6a6b7fcb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - taxanotes_community
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: taxanotes_community_help
+theme: taxanotes_community
+region: help
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

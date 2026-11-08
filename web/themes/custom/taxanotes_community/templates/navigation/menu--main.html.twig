@@ -1,0 +1,143 @@
+{#
+/**
+ * @file
+ * The main menu: a bar of top-level items; each item with children opens a
+ * panel (a drawer under the bar on desktop, an accordion row on phones) that
+ * lists the children. js/taxanotes_community.js opens and closes the panels;
+ * js/menu-state.js marks the current section and page; the CSS is in
+ * css/menu-common.css, menu-desktop.css, menu-mobile.css and menu-focus.css.
+ *
+ * A parent that has a page of its own leads the panel with a link to it
+ * (span.first-link); a parent without one (route:<nolink>, as taxanotes.org's
+ * sections are) leads it with a plain heading instead. All its children are
+ * listed below either way.
+ *
+ * The Search item is not a menu link: the theme's preprocess sets
+ * search_item when the Search module is on, and the template appends a
+ * button that opens the search form placed in the "search" region (its
+ * template, block--search-form-block.html.twig, gives the form the id the
+ * JS looks for). Without JavaScript the button is replaced by a plain link
+ * to the search page.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link URL, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ * - search_item: TRUE to append the Search item (set in
+ *   taxanotes_community_preprocess_menu__main()).
+ */
+#}
+{% import _self as menus %}
+
+{{ menus.menu_bar(items, search_item) }}
+
+{{ menus.menu_noscript(items, search_item) }}
+
+{% macro menu_bar(items, search_item) %}
+  {% import _self as menus %}
+  <div class="main-menu-wrap">
+    <ul class="main-menu-item-container" id="sub-menu-item-container-ul">
+      {% for item in items %}
+        <li{{ item.attributes }}><span class="sub-menu-item">
+          <div class="main-menu-item-wrapper">
+            {% if item.below %}
+              <button class="main_nav_link" type="button" aria-expanded="false">
+                <span>{{ item.title }}</span>
+                <svg role="presentation" class="lnk__icon navigation__link__down-icon" focusable="false">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tvip-down-triangle" href="#tvip-down-triangle" role="presentation"></use>
+                </svg>
+              </button>
+              {{ menus.submenu(item) }}
+            {% else %}
+              {{ link(item.title, item.url, { 'class': ['main_nav_link'] }) }}
+            {% endif %}
+          </div>
+        </span></li>
+      {% endfor %}
+      {% if search_item %}
+        <li class="menu-item menu-item--search"><span class="sub-menu-item">
+          <div class="main-menu-item-wrapper">
+            <button class="main_nav_link" type="button" id="search-in-menu" aria-expanded="false" aria-controls="search-form-container">
+              <svg class="search-menu-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="presentation" focusable="false">
+                <circle cx="10.5" cy="10.5" r="7.5"/>
+                <line x1="21" y1="21" x2="15.8" y2="15.8"/>
+              </svg>
+              <span>{{ 'Search'|t }}</span>
+              <svg role="presentation" class="lnk__icon navigation__link__down-icon" focusable="false">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tvip-down-triangle" href="#tvip-down-triangle" role="presentation"></use>
+              </svg>
+            </button>
+            {# No-JS fallback: the button needs JavaScript, so offer a plain link
+               to the search page; menu-common.css swaps their visibility on
+               the html.js class. #}
+            <a class="main_nav_link search-nojs-link" href="{{ path('search.view_node_search') }}">
+              <svg class="search-menu-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="presentation" focusable="false">
+                <circle cx="10.5" cy="10.5" r="7.5"/>
+                <line x1="21" y1="21" x2="15.8" y2="15.8"/>
+              </svg>
+              <span>{{ 'Search'|t }}</span>
+            </a>
+          </div>
+        </span></li>
+      {% endif %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{% macro submenu(item) %}
+  {% set nolink = item.url.routed and item.url.routeName == '<nolink>' %}
+  <div class="sub-menu-container hidden-2l animated">
+    <div class="sub-menu-items-outer-container">
+      {% if nolink %}
+        <span class="sub-menu-item first-link sub-menu-heading">{{ item.title }}</span>
+      {% else %}
+        <span class="sub-menu-item first-link">{{ link(item.title, item.url, { 'class': ['first-link'] }) }}</span>
+      {% endif %}
+      <ul class="sub-menu-item-container">
+        {% for child in item.below %}
+          <li{{ child.attributes }}><span class="sub-menu-item">{{ link(child.title, child.url) }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endmacro %}
+
+{#
+  No-JS fallback menu, rendered from the same tree with native
+  <details>/<summary>, so sections expand without JavaScript. Hidden whenever
+  JS runs and at desktop widths (menu-common.css); styled in menu-mobile.css.
+#}
+{% macro menu_noscript(items, search_item) %}
+  <div class="mobile-menu-noscript">
+    {% for item in items %}
+      {% if item.below %}
+        <details>
+          <summary>{{ item.title }}</summary>
+          <ul>
+            {% set nolink = item.url.routed and item.url.routeName == '<nolink>' %}
+            {% if not nolink %}
+              <li>{{ link(item.title, item.url) }}</li>
+            {% endif %}
+            {% for child in item.below %}
+              <li>{{ link(child.title, child.url) }}</li>
+            {% endfor %}
+          </ul>
+        </details>
+      {% else %}
+        {{ link(item.title, item.url) }}
+      {% endif %}
+    {% endfor %}
+    {% if search_item %}
+      <a href="{{ path('search.view_node_search') }}">{{ 'Search'|t }}</a>
+    {% endif %}
+  </div>
+{% endmacro %}

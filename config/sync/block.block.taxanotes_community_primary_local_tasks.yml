@@ -1,0 +1,22 @@
+uuid: 9612b982-b61e-4d9a-90d6-42b489a17f41
+langcode: en
+status: true
+dependencies:
+  theme:
+    - taxanotes_community
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: taxanotes_community_primary_local_tasks
+theme: taxanotes_community
+region: content
+weight: -8
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

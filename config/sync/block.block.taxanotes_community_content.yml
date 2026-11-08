@@ -1,0 +1,22 @@
+uuid: fbca54b5-2eab-4e17-a016-3ef02563f114
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - taxanotes_community
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: taxanotes_community_content
+theme: taxanotes_community
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

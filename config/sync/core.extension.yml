@@ -65,4 +65,5 @@ module:
 theme:
   olivero: 0
   claro: 0
+  taxanotes_community: 0
 profile: standard

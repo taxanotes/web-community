@@ -1,0 +1,657 @@
+/* ══════════════════════════════════════
+   taxanotes.org: header brand, content column, footer, and Drupal's
+   everyday output (tabs, breadcrumb, messages, forms, tables, comments,
+   forum). The menu itself is in menu-*.css and search.css.
+   ══════════════════════════════════════ */
+
+/* ── Header band: mark + wordmark ── */
+#txn-header-upper {
+  background-color: var(--brand);
+}
+
+.txn-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.txn-brand__mark {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  display: block;
+}
+
+.txn-brand__wordmark {
+  font-family: var(--font-family);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: #fff;
+  /* The o's cup; a hair of optical lift lines the x-height with the mark's leaves. */
+  padding-bottom: 0.08em;
+}
+
+.txn-brand:hover .txn-brand__wordmark,
+.txn-brand:hover .txn-brand__mark {
+  color: var(--hover-tint);
+}
+
+.txn-brand:focus-visible {
+  outline: 3px solid #e8870e;
+  outline-offset: 3px;
+}
+
+@media (max-width: 799px) {
+  #txn-logo {
+    padding-left: 16px;
+  }
+  .txn-brand__mark {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .txn-brand__wordmark {
+    font-size: 1.7rem;
+  }
+  /* The hamburger: centred on the 72px band (icon 24px + 6px gap + 16px
+     text = 46px; (72 − 46) / 2 = 13px). Open, its second text line hangs
+     below without moving the icon. */
+  .txn-togl-expand {
+    top: 13px;
+  }
+}
+
+/* ── Submenu section heading (a parent menu item without a page of its
+   own renders as a heading above its children, not as a link) ── */
+.sub-menu-container .sub-menu-heading {
+  display: block;
+  font-weight: 700;
+  color: var(--brand);
+  padding: 0.16em 0 0.16em 0.2em;
+  line-height: 1.2;
+}
+
+@media (max-width: 799px) {
+  .sub-menu-container .sub-menu-heading {
+    display: none; /* the row the user tapped already says it */
+  }
+}
+
+/* ── Content column ── */
+.layout-content {
+  width: 100%;
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  padding: 1.5rem var(--align-floor) 3rem;
+  box-sizing: border-box;
+}
+
+/* On desktop the menu bar's text starts (1em − 12px) + 12px = 1em in from
+   the column edge; the content's own padding is 1em, so they line up. */
+
+main[role="main"] {
+  background-color: var(--body-bg);
+}
+
+@media (min-width: 800px) {
+  main[role="main"] {
+    /* menu-desktop.css paints main white (opaque, the drawer slides out
+       from behind it); keep it opaque, in the page colour. */
+    background-color: var(--body-bg);
+  }
+}
+
+.layout-content p,
+.layout-content ul,
+.layout-content ol {
+  max-width: 75ch;
+}
+
+.layout-content li {
+  margin-bottom: 0.3em;
+}
+
+.layout-content blockquote {
+  margin: 1.2em 0;
+  padding: 0.2em 0 0.2em 1.2em;
+  border-left: 4px solid var(--brand-pale);
+  color: var(--text-mid);
+}
+
+.layout-content hr {
+  border: 0;
+  border-top: 1px solid var(--rule-soft);
+  margin: 2rem 0;
+}
+
+.layout-content code,
+.layout-content pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  background: #fff;
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+}
+
+.layout-content code {
+  padding: 0.1em 0.3em;
+}
+
+.layout-content pre {
+  padding: 0.8em 1em;
+  overflow-x: auto;
+  max-width: none;
+}
+
+.layout-content pre code {
+  border: 0;
+  padding: 0;
+}
+
+/* Page title block */
+.layout-content .block-page-title-block h1 {
+  margin: 0.5rem 0 1rem;
+}
+
+/* ── Secondary menu: account links (Log in / My account / Log out) ── */
+.region-secondary-menu {
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  padding: 0.5rem var(--align-floor) 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.region-secondary-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.region-secondary-menu a {
+  color: var(--brand);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.region-secondary-menu a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+/* ── Breadcrumb ── */
+.region-breadcrumb {
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  padding: 0.6rem var(--align-floor) 0;
+  box-sizing: border-box;
+}
+
+.region-breadcrumb ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  font-size: 0.9rem;
+  color: var(--text-mid);
+}
+
+.region-breadcrumb li + li::before {
+  content: '›';
+  margin-right: 0.3em;
+  color: var(--text-mid);
+}
+
+.region-breadcrumb a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.region-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* ── Highlighted: status messages ── */
+.region-highlighted {
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--align-floor);
+  box-sizing: border-box;
+}
+
+.messages,
+.messages--status {
+  margin: 1rem 0 0;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--brand-light);
+  background: #fff;
+  border-radius: 2px;
+}
+
+.messages--warning {
+  border-left-color: #e8870e;
+}
+
+.messages--error {
+  border-left-color: #b00020;
+}
+
+.messages__list {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+/* ── Tabs (local tasks: View / Edit / Delete…) ── */
+.layout-content .block-local-tasks-block ul,
+.layout-content .block-local-tasks-block + ul,
+.layout-content nav.tabs ul,
+.layout-content ul.tabs {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  border-bottom: 2px solid var(--brand-pale);
+}
+
+.layout-content .block-local-tasks-block li a,
+.layout-content ul.tabs li a {
+  display: block;
+  padding: 0.4em 0.9em;
+  color: var(--brand);
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid var(--rule-soft);
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background: #fff;
+}
+
+.layout-content .block-local-tasks-block li a:hover,
+.layout-content ul.tabs li a:hover {
+  background: var(--brand-pale);
+  color: var(--brand);
+}
+
+.layout-content .block-local-tasks-block li a.is-active,
+.layout-content ul.tabs li a.is-active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+/* Local actions (e.g. "Add new forum topic") */
+.layout-content .block-local-actions-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.layout-content .block-local-actions-block a,
+.layout-content .button,
+.layout-content button:not(.search-clear-btn):not(.search-menu-item-icon),
+.layout-content input[type="submit"] {
+  display: inline-block;
+  padding: 0.5em 1.1em;
+  background: var(--brand);
+  color: #fff;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid var(--brand);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.layout-content .block-local-actions-block a:hover,
+.layout-content .button:hover,
+.layout-content button:not(.search-clear-btn):not(.search-menu-item-icon):hover,
+.layout-content input[type="submit"]:hover {
+  background: var(--brand-light);
+  border-color: var(--brand-light);
+  color: #fff;
+}
+
+.layout-content .button--danger,
+.layout-content .button--danger:hover {
+  background: #b00020;
+  border-color: #b00020;
+}
+
+/* ── Forms ── */
+.layout-content .form-item,
+.layout-content .form-actions {
+  margin: 0 0 1.1rem;
+}
+
+.layout-content label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.layout-content .form-item .description {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  margin-top: 0.3rem;
+}
+
+.layout-content input[type="text"],
+.layout-content input[type="email"],
+.layout-content input[type="password"],
+.layout-content input[type="search"],
+.layout-content input[type="url"],
+.layout-content input[type="number"],
+.layout-content input[type="tel"],
+.layout-content textarea,
+.layout-content select {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  padding: 0.45em 0.6em;
+  border: 2px solid var(--brand);
+  border-radius: 2px;
+  background: #fff;
+  color: var(--text);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.layout-content input:focus-visible,
+.layout-content textarea:focus-visible,
+.layout-content select:focus-visible,
+.layout-content a:focus-visible,
+.layout-content button:focus-visible {
+  outline: 3px solid #e8870e;
+  outline-offset: 1px;
+}
+
+.layout-content textarea {
+  width: 100%;
+  min-height: 8em;
+}
+
+.layout-content fieldset {
+  border: 1px solid var(--rule-soft);
+  padding: 1rem 1.2rem;
+  margin: 0 0 1.2rem;
+  background: #fff;
+}
+
+.layout-content legend {
+  font-weight: 700;
+  color: var(--brand);
+  padding: 0 0.4em;
+}
+
+.layout-content details {
+  border: 1px solid var(--rule-soft);
+  background: #fff;
+  padding: 0.6rem 1rem;
+  margin: 0 0 1rem;
+}
+
+.layout-content summary {
+  font-weight: 700;
+  color: var(--brand);
+  cursor: pointer;
+}
+
+/* ── Tables (the forum list, member lists) ── */
+.layout-content table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.layout-content th,
+.layout-content td {
+  padding: 0.6em 0.8em;
+  border-bottom: 1px solid var(--rule-soft);
+  text-align: left;
+  vertical-align: top;
+}
+
+.layout-content th {
+  background: var(--brand-pale);
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.layout-content tr:hover td {
+  background: #fcfbf9;
+}
+
+.layout-content table a {
+  font-weight: 700;
+}
+
+/* Forum: the topic list's icon/title cell */
+.layout-content .forum__icon {
+  display: none;
+}
+
+.layout-content .forum__description {
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  margin: 0.2em 0 0;
+}
+
+/* ── Nodes, comments ── */
+.layout-content article > footer,
+.layout-content .node__meta {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  margin: 0 0 1rem;
+}
+
+.layout-content .comment {
+  background: #fff;
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+  padding: 1rem 1.2rem;
+  margin: 0 0 1rem;
+}
+
+.layout-content .comment > footer {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  margin: 0 0 0.6rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.layout-content .comment > footer p {
+  margin: 0;
+}
+
+.layout-content .comment h3 {
+  margin-top: 0;
+}
+
+.layout-content .indented {
+  margin-left: 1.5rem;
+}
+
+.layout-content .user-picture img,
+.layout-content .comment img.image-style-thumbnail {
+  border-radius: 50%;
+}
+
+/* Node links (Add new comment, Read more) */
+.layout-content ul.links.inline {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+
+/* ── Sidebars ── */
+.layout-sidebar-first,
+.layout-sidebar-second {
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--align-floor) 2rem;
+  box-sizing: border-box;
+}
+
+/* ── Footer ── */
+.txn-footer {
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding: 1.5rem var(--align-floor);
+  box-sizing: border-box;
+}
+
+.txn-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.txn-footer__brand svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.txn-footer__brand:hover {
+  color: var(--hover-tint);
+}
+
+.txn-footer__brand:focus-visible {
+  outline: 3px solid #e8870e;
+  outline-offset: 3px;
+}
+
+.txn-footer__blocks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  font-size: 0.92rem;
+}
+
+.txn-footer__blocks ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+
+.txn-footer__blocks a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.txn-footer__blocks a:hover {
+  color: var(--hover-tint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.txn-footer__blocks h2 {
+  font-size: 0.95rem;
+  color: #fff;
+  margin: 0 0 0.3rem;
+}
+
+/* ── Core's unclassed markup: status messages, action links ── */
+[data-drupal-messages] ul,
+.layout-content ul.action-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+[data-drupal-messages] [role="contentinfo"] {
+  margin: 1rem 0 0;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--brand-light);
+  background: #fff;
+  border-radius: 2px;
+}
+
+[data-drupal-messages] [aria-label="Warning message"] {
+  border-left-color: #e8870e;
+}
+
+[data-drupal-messages] [aria-label="Error message"] {
+  border-left-color: #b00020;
+}
+
+[data-drupal-messages] li + li {
+  margin-top: 0.4em;
+}
+
+.layout-content ul.action-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+}
+
+.layout-content ul.action-links li {
+  margin: 0;
+}
+
+.layout-content ul.action-links a {
+  display: inline-block;
+  padding: 0.5em 1.1em;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid var(--brand);
+  border-radius: 3px;
+}
+
+.layout-content ul.action-links a:hover {
+  background: var(--brand-light);
+  border-color: var(--brand-light);
+  color: #fff;
+}
+
+/* Long unbreakable strings (file paths in messages, URLs in posts) must
+   not widen the page on phones. */
+[data-drupal-messages],
+.layout-content {
+  overflow-wrap: anywhere;
+}
+
+/* The bare pages print their own heading (page.html.twig); the page title
+   block inside the box would repeat it. */
+.txn-system-page .block-page-title-block {
+  display: none;
+}

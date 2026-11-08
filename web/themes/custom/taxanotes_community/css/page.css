@@ -1,0 +1,38 @@
+.max-fixed {
+    max-width: var(--container-max, 1200px);
+}
+
+.centring {
+/*
+  display: flex;
+  justify-content: center;
+*/
+}
+
+/* Desktop: constrain site content to 1200px */
+@media screen and (min-width: 800px) {
+  /* Header spans full width (blue background); content aligned to main grid */
+  #txn-header {
+    max-width: none;
+    box-sizing: border-box;
+    padding-left: max(var(--align-floor), calc((100% - var(--container-max, 1200px)) / 2 + 0em));
+    padding-right: max(var(--align-floor), calc((100% - var(--container-max, 1200px)) / 2 + var(--align-floor)));
+  }
+
+  /* Logo area: same 1200px centering to align with menu text */
+  #txn-logo {
+    padding-left: max(var(--align-floor), calc((100% - var(--container-max, 1200px)) / 2 + 0em));
+  }
+
+  /* Main content constrained to 1200px */
+  main[role="main"] {
+    /*
+    width: 100%;
+    max-width: var(--container-max, 1200px);
+    */
+    /*
+    margin-left: auto;
+    margin-right: auto;
+    */
+  }
+}
