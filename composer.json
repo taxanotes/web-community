@@ -29,6 +29,7 @@
         "drupal/jquery_ui_menu": "^2.1",
         "drupal/mailsystem": "^4.5",
         "drupal/profile": "^1.16",
+        "drupal/redirect": "^1.13",
         "drupal/smtp": "^1.4",
         "drupal/social_auth_facebook": "^4.0.4",
         "drupal/social_auth_google": "^4.0.3",
