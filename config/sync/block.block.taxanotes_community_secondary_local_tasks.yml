@@ -1,6 +1,6 @@
 uuid: e15b5b0e-cb46-4c9d-9136-9db373e469ea
 langcode: en
-status: false
+status: true
 dependencies:
   theme:
     - taxanotes_community
