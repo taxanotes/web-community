@@ -1,6 +1,6 @@
 uuid: 7870a506-0017-44a7-a4a7-9d268220acd9
 langcode: en
-status: false
+status: true
 dependencies:
   module:
     - social_auth
