@@ -286,9 +286,13 @@ main[role="main"] {
   gap: 0.5rem;
 }
 
+/* Form buttons in the site's shape. Scoped to forms so that buttons other
+   modules place in the content column keep their own look: core's
+   contextual-links pencil (button.trigger in .contextual, a background image
+   this shorthand would wipe out) and Leaflet's map controls. */
 .layout-content .block-local-actions-block a,
 .layout-content .button,
-.layout-content button:not(.search-clear-btn):not(.search-menu-item-icon),
+.layout-content form button:not(.search-clear-btn):not(.search-menu-item-icon),
 .layout-content input[type="submit"] {
   display: inline-block;
   padding: 0.5em 1.1em;
@@ -305,7 +309,7 @@ main[role="main"] {
 
 .layout-content .block-local-actions-block a:hover,
 .layout-content .button:hover,
-.layout-content button:not(.search-clear-btn):not(.search-menu-item-icon):hover,
+.layout-content form button:not(.search-clear-btn):not(.search-menu-item-icon):hover,
 .layout-content input[type="submit"]:hover {
   background: var(--brand-light);
   border-color: var(--brand-light);

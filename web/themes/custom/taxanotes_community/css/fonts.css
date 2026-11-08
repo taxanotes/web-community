@@ -151,8 +151,10 @@ h4 { font-size: 1.1rem; margin-top: 1em; }
   h4 { font-size: 1rem; }
 }
 
-/* Links in the page body: dark text, accent underline; accent text on hover. */
-.layout-content a {
+/* Links in the page body: dark text, accent underline; accent text on hover.
+   Not the links that are really controls and style themselves: Leaflet's
+   map zoom buttons and attribution, and core's contextual-links menu. */
+.layout-content a:not(.leaflet-container a, .contextual a) {
   color: var(--text);
   font-weight: 700;
   text-decoration: underline;
@@ -162,7 +164,7 @@ h4 { font-size: 1.1rem; margin-top: 1em; }
   transition: color 0.15s;
 }
 
-.layout-content a:hover {
+.layout-content a:not(.leaflet-container a, .contextual a):hover {
   color: var(--accent);
 }
 
