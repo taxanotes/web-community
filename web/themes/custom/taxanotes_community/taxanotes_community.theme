@@ -1,0 +1,206 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Theme functions of taxanotes_community, the theme of taxanotes.org.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function taxanotes_community_preprocess_html(array &$variables): void {
+  $route_name = \Drupal::routeMatch()->getRouteName() ?? '';
+  // The search results page: css/search.css lays out the form and results.
+  if (str_starts_with($route_name, 'search.view_')) {
+    $variables['attributes']['class'][] = 'search-results-page';
+  }
+  // Log in / register / reset password / 404 / 403: see
+  // _taxanotes_community_system_page().
+  if ($system_page = _taxanotes_community_system_page()) {
+    $variables['attributes']['class'][] = 'page-system';
+    $variables['attributes']['class'][] = 'page-system--' . $system_page['key'];
+  }
+}
+
+/**
+ * Describes the current route if it is one of Drupal's own bare pages.
+ *
+ * These pages have no node, so they would render as unstyled form fields or
+ * a lone sentence hard against the header. page.html.twig gives them a
+ * heading, an intro and a white box; css/system-pages.css styles the forms.
+ *
+ * @return array|null
+ *   key, title, intro, links (label => path), replace_content (bool).
+ */
+function _taxanotes_community_system_page(): ?array {
+  $pages = [
+    'user.login' => [
+      'key' => 'login',
+      'title' => t('Log in'),
+      'intro' => t('For members of the Taxanotes community.'),
+      'links' => [
+        (string) t('Forgotten your password?') => '/user/password',
+        (string) t('Create an account') => '/user/register',
+      ],
+    ],
+    'user.register' => [
+      'key' => 'register',
+      'title' => t('Create an account'),
+      'intro' => t('Join the Taxanotes community. New accounts are confirmed by a maintainer before they are active.'),
+      'links' => [(string) t('Already a member? Log in') => '/user/login'],
+    ],
+    'user.pass' => [
+      'key' => 'password',
+      'title' => t('Reset your password'),
+      'intro' => t('Enter your username or email address and we will send you a link to set a new password.'),
+      'links' => [(string) t('Back to log in') => '/user/login'],
+    ],
+    'system.404' => [
+      'key' => '404',
+      'title' => t('Page not found'),
+      'intro' => t('Sorry, there is no page at this address. It may have moved, or the link may be out of date.'),
+      'links' => [
+        (string) t('Home') => '/',
+        (string) t('Forum') => '/forum',
+        (string) t('The data model') => '/model',
+        (string) t('Hosting') => '/hosting',
+        (string) t('User guide') => '/user-guide',
+      ],
+      'replace_content' => TRUE,
+    ],
+    'system.403' => [
+      'key' => '403',
+      'title' => t('You need to log in to see this page'),
+      'intro' => t('This page is not public. If you are a member, log in and try again.'),
+      'links' => [(string) t('Log in') => '/user/login', (string) t('Home') => '/'],
+      'replace_content' => TRUE,
+    ],
+  ];
+  $route = \Drupal::routeMatch()->getRouteName();
+  return $pages[$route] ?? NULL;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function taxanotes_community_preprocess_page(array &$variables): void {
+  $variables['system_page'] = _taxanotes_community_system_page();
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu--main.html.twig.
+ *
+ * The Search item of the menu bar is not a menu link: it is appended by the
+ * template whenever the Search module is on. (Anonymous and authenticated
+ * users both have "search content" on taxanotes.org; a user without it would
+ * reach the search page's own access denied.)
+ */
+function taxanotes_community_preprocess_menu__main(array &$variables): void {
+  $variables['search_item'] = \Drupal::moduleHandler()->moduleExists('search');
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * The favicon set, all the Taxanotes mark: Drupal links favicon.ico from the
+ * theme root itself; this adds the SVG (modern browsers prefer it at any
+ * size), a 32px PNG and the Apple touch icon.
+ */
+function taxanotes_community_page_attachments_alter(array &$attachments): void {
+  $base = base_path() . \Drupal::service('extension.list.theme')->getPath('taxanotes_community');
+  $attachments['#attached']['html_head_link'][] = [
+    ['rel' => 'icon', 'href' => $base . '/favicon.svg', 'type' => 'image/svg+xml'],
+    FALSE,
+  ];
+  $attachments['#attached']['html_head_link'][] = [
+    ['rel' => 'icon', 'href' => $base . '/images/favicon-32.png', 'type' => 'image/png', 'sizes' => '32x32'],
+    FALSE,
+  ];
+  $attachments['#attached']['html_head_link'][] = [
+    ['rel' => 'apple-touch-icon', 'href' => $base . '/images/apple-touch-icon-180.png', 'sizes' => '180x180'],
+    FALSE,
+  ];
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => ['name' => 'theme-color', 'content' => '#1b5e20'],
+    ],
+    'taxanotes_community_theme_color',
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ *
+ * form--search-form.html.twig lays out the search page's form.
+ */
+function taxanotes_community_theme_suggestions_form_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#form_id'])) {
+    $suggestions[] = 'form__' . $variables['element']['#form_id'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for item-list--search-results.html.twig.
+ *
+ * Visiting the search page with no keywords showed "Your search yielded no
+ * results", misleading when the visitor has not searched yet: invite them to
+ * search instead. A genuine empty result set keeps the core message.
+ */
+function taxanotes_community_preprocess_item_list__search_results(array &$variables): void {
+  $keys = trim((string) \Drupal::request()->query->get('keys', ''));
+  if ($keys === '' && !empty($variables['empty'])) {
+    $variables['empty'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#attributes' => ['class' => ['search-empty-prompt']],
+      '#value' => t('Please enter search terms above to search the site.'),
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for pager.html.twig.
+ *
+ * Drupal's pager builds hrefs as ?page=N only and drops the other query
+ * parameters of the current request (a filter, the search keys). Merge them
+ * into every pager link so paging keeps them.
+ */
+function taxanotes_community_preprocess_pager(array &$variables): void {
+  $current = \Drupal::request()->query->all();
+  // 'page' belongs to the pager itself.
+  unset($current['page']);
+  if (empty($current)) {
+    return;
+  }
+
+  $merge_into_href = function (string $href) use ($current): string {
+    $parts = parse_url($href);
+    $existing = [];
+    if (!empty($parts['query'])) {
+      parse_str($parts['query'], $existing);
+    }
+    // The link's own parameters (page=N) win over the request's.
+    $merged = $current + $existing;
+    $path = $parts['path'] ?? '';
+    return $path . (empty($merged) ? '' : '?' . http_build_query($merged));
+  };
+
+  foreach (['first', 'previous', 'next', 'last'] as $key) {
+    if (isset($variables['items'][$key]['href'])) {
+      $variables['items'][$key]['href'] = $merge_into_href($variables['items'][$key]['href']);
+    }
+  }
+  if (!empty($variables['items']['pages']) && is_array($variables['items']['pages'])) {
+    foreach ($variables['items']['pages'] as &$item) {
+      if (isset($item['href'])) {
+        $item['href'] = $merge_into_href($item['href']);
+      }
+    }
+    unset($item);
+  }
+}

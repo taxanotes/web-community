@@ -1,0 +1,22 @@
+# Main theme library: every page.
+global:
+  js:
+    js/taxanotes_community.js: {}
+    js/menu-state.js: { defer: true }
+  css:
+    component:
+      css/elements.css: {}
+      css/fonts.css: {}
+      css/page.css: {}
+      css/menu-common.css: {}
+      css/menu-desktop.css: {}
+      css/menu-mobile.css: {}
+      css/search.css: {}
+      css/content.css: {}
+      css/footer-base.css: {}
+      css/system-pages.css: {}
+      # Keyboard focus marker: loaded last so it wins over every state rule.
+      css/menu-focus.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

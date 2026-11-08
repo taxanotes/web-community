@@ -1,0 +1,22 @@
+uuid: ce1cd104-e6a0-4feb-914e-8939fa5a4bb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - taxanotes_community
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: taxanotes_community_breadcrumbs
+theme: taxanotes_community
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

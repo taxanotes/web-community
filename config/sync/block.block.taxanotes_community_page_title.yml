@@ -1,0 +1,28 @@
+uuid: 5604e76d-e947-432a-8206-bb1eb3941d97
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - taxanotes_community
+id: taxanotes_community_page_title
+theme: taxanotes_community
+region: content
+weight: -10
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: |-
+      <front>
+      /user/login
+      /user/register
+      /user/password

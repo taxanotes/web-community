@@ -1,0 +1,519 @@
+@media screen and (min-width: 800px) {
+  #mast-head {
+    width: 15em;
+    padding-left: 1.4em;
+    display: block;
+    /* https://stackoverflow.com/a/11126701/227926 */
+  }
+
+  #txn-logo {
+    display: block;
+    /*float: left; */
+  }
+
+  #txn-prim-menu {
+    display: inline-block;
+    float: left;
+  }
+
+  #txn-srch {
+    display: inline-block;
+    float: left;
+  }
+
+  #txn-header {
+    width: 100%;
+    /* height: 96px; */
+    height: 48px;
+    /* submenu_cover_height related: main_menu_section_height and submenu_desktop_hide_position_top */
+
+    opacity: 1.0;
+    background-color: var(--brand);
+    position: relative;
+  }
+
+  main {
+    clear: both;
+    overflow: hidden;
+    /* https://gemini.google.com/share/1bf7b89017b3 */
+    background-color: white;
+    opacity: 1.0;
+  }
+
+  /* Submenu text fade transition for switching */
+  .sub-menu-container .first-link,
+  .sub-menu-container .sub-menu-item-container a {
+    transition: opacity 0.18s ease;
+  }
+
+  .sub-menu-container.text-hidden .first-link,
+  .sub-menu-container.text-hidden .sub-menu-item-container a {
+    opacity: 0;
+  }
+
+  /* Nav container height animation */
+  #txn-prim-menu nav[role=navigation].animation {
+    transition-property: height;
+    -webkit-transition-property: height;
+    transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+  }
+
+  #txn-prim-menu nav[role=navigation] {
+    /* height: 90px; */
+    /*height: 96px;*/
+    height: 48px;
+  }
+
+  /* Submenu opacity and slide animation */
+  .sub-menu-container.animated {
+    transition-property: opacity, top;
+    -webkit-transition-property: opacity, top;
+    transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+  }
+
+  .main-menu-item-container>li {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .main-menu-item-container {
+    display: inline-block;
+    /*column-count: 5;*/
+    /* mobile screen detection relies on this in taxanotes_community.js */
+    padding-left: calc(1em - 12px); /*includes 1em for alignment with content */
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .sub-menu-item-container {
+    flex-direction: row;
+    position: relative;
+    width: auto;
+  }
+
+  .sub-menu-container {
+    width: 100%;
+    right: 0px;
+    position: absolute;
+    padding-top: 16px; /* submenu_padding_top in JS */
+    padding-bottom: 16px; /* TODO: submenu-bottom-fill — submenu background extends to header border-bottom. May need further refinement. */
+  }
+
+  /* Desktop: Apply transition to submenu for slide animation */
+
+  .sub-menu-container {
+    top: -50px;
+    /* Default hidden position */
+    transition-property: opacity, top;
+    -webkit-transition-property: opacity, top;
+    transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+  }
+
+  /* Visible position - slides down to reveal */
+  .sub-menu-container.visible-2l {
+    /* top: 96px !important; */
+    top: 48px !important;
+  }
+
+  /* Hidden position - slides up above the menu bar */
+  .sub-menu-container.hidden-2l {
+    top: -50px !important;
+  }
+
+  /* Flex layout for menu items to enable column effect */
+  .main-menu-item-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .main-menu-item-container>li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Full-width background using pseudo-element.
+     The container already spans the full viewport width, so 100% is the
+     full-bleed width. 100vw would include the vertical scrollbar and
+     cause a permanent horizontal scrollbar. */
+  .sub-menu-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  /* The open submenu is one white surface: the full-width strip, the active
+     item's <li>, and its button (the "tab" that joins the strip). It was
+     warm-grey until 2026-09, which is now the page background on section
+     pages and the front page — the submenu vanished into it. Desktop only;
+     the mobile menu keeps warm-grey (menu-mobile.css). */
+  .sub-menu-container.visible-2l::before {
+    background-color: var(--submenu-bg, #fff);
+  }
+
+  /* Background color for entire li when its submenu is expanded (active item) */
+  .main-menu-item-container>li:has(.sub-menu-container.visible-2l) {
+    background-color: var(--submenu-bg, #fff);
+  }
+
+  /* Background color for main menu button when its submenu is expanded (active item) */
+  li:has(.sub-menu-container.visible-2l)>button.main_nav_link {
+    background-color: var(--submenu-bg, #fff);
+  }
+
+  /* Constrain submenu content to 1200px — explicit calc matches .first-link centering */
+  .sub-menu-item-container {
+    max-width: var(--container-max, 1200px);
+    /*
+    margin-left: max(0px, calc((100% - var(--container-max, 1200px)) / 2));
+    */
+    margin-right: auto;
+  }
+
+  .sub-menu-container > a.first-link {
+    /* display: block; */
+    /* width: fit-content; */
+    /* Same centering calc as ul.sub-menu-item-container, plus 2em text offset minus 0.2em hover padding */
+    /*  margin-left: max(0px, calc((100% - 1200px) / 2 + 2em - 0.2em)); */
+    /* padding: 0.16em 0.2em; */ /* symmetric hover highlight */ 
+  }
+
+  /* Visible position - slides down to reveal */
+  .sub-menu-container.visible-2l {
+    /* top: 96px; */
+    top: 48px;
+    z-index: 100;
+  }
+
+  /* Hidden position - slides up above the menu bar */
+  .sub-menu-container.hidden-2l {
+    top: -50px;
+    z-index: -1;
+  }
+
+  .main-menu-wrap {
+    align-items: center;
+    display: flex;
+    /* height: 96px; */
+    height: 48px;
+    /*height: 90px;*/
+    /* main_menu_section_height - related: submenu_cover_height and submenu_desktop_hide_position_top*/
+  }
+
+  .sub-menu-container {
+    z-index: -1;
+    /* Default for all submenus */
+  }
+
+  .sub-menu-container.hidden-2l {
+    z-index: -1;
+    /* Explicit for hidden */
+  }
+
+  .navigation__link__down-icon {
+    height: 1em;
+    width: 0.9em;
+  }
+
+  /* Desktop nav link text: white on blue header */
+  button.main_nav_link > span {
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.15s;
+  }
+
+  button.main_nav_link:hover > span {
+    color: #fff;
+  }
+
+  /* Home link (no child span) */
+  .main-menu-item-wrapper > a.main_nav_link {
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.15s;
+  }
+
+  .main-menu-item-wrapper > a.main_nav_link:hover {
+    color: #fff;
+  }
+
+  /* Desktop chevrons: white on blue header */
+  .navigation__link__down-icon {
+    fill: rgba(255, 255, 255, 0.85);
+    stroke: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Desktop search icon: white on blue header */
+  .search-menu-icon {
+    stroke: rgba(255, 255, 255, 0.85);
+  }
+
+  button.main_nav_link:hover .search-menu-icon {
+    stroke: #fff;
+  }
+
+  /* Submenu item text — display:block so padding creates layout space (no overlap) */
+
+  .sub-menu-item-container a {
+    color: var(--brand);
+    transition: background-color 0.15s, color 0.15s;
+    padding: 0.16em 0.0em 0.16em 0.5em; /* was 0.2em left */
+    display: block;
+    line-height: 1.2;
+  }
+
+    .sub-menu-container .first-link {
+    color: var(--brand);
+    transition: background-color 0.15s, color 0.15s;
+    padding: 0.16em 0.0em 0.16em 0.2em; /* was 0.2em left */
+    display: block;
+    line-height: 1.2;
+    }
+
+  .sub-menu-container .first-link {
+    text-decoration: none;
+  }
+
+  /* Submenu item hover: brand green background, white text */
+  .sub-menu-container .first-link:hover,
+  .sub-menu-item-container a:hover {
+    background-color: var(--brand);
+    color: #ffffff;
+  }
+
+  /* When hovering the span.first-link wrapper, force the child <a> text white too */
+  .sub-menu-container span.first-link:hover a {
+    color: #ffffff;
+  }
+
+  /* Active menu item text: brand green, bold — after white text rules so cascade wins */
+  .main-menu-item-container>li:has(.sub-menu-container.visible-2l) button.main_nav_link > span {
+    color: var(--brand);
+  }
+
+  /* Active chevron: brand green */
+  .main-menu-item-container>li:has(.sub-menu-container.visible-2l) .navigation__link__down-icon {
+    fill: var(--brand);
+    stroke: var(--brand);
+  }
+
+  /*ul.sub-menu-item-container { */
+      /*box-sizing: border-box; */ /* so max-width:1200px includes padding — matches .first-link centering */
+      /* padding-left: 0.4em;*/
+      /*padding-left: calc(2em - 0.2em); */ /* align to main menu text: 2em total minus a padding-left 0.2em */
+  /* } */
+
+
+
+    .sub-menu-items-outer-container {
+      box-sizing: border-box; /* so max-width:1200px includes padding — matches .first-link centering */
+      /* padding-left: 0.4em;*/
+      padding-left: calc(1em - 0.2em); /* align to main menu text: 1em total minus a padding-left 0.2em */
+      margin-left: max(var(--align-floor), calc((100% - var(--container-max, 1200px)) / 2));
+  }
+
+.sub-menu-container > a.first-link {
+  /* padding now set in .sub-menu-container>.first-link rule above */
+}
+
+/*
+span.sub-menu-item.first-link,
+span.sub-menu-item
+
+ {
+  padding-inline-start: 0.3em;
+}
+  */
+
+button.main_nav_link,
+a.main_nav_link {
+        font-size: 1rem;
+        padding: 15px 20px 12px; /* bottom 12px: a hair of clearance above the submenu panel, and lifts the indicated bottom line 1px clear of the fade boundary so it doesn't appear to thin when the submenu finishes opening */
+        box-sizing: border-box;
+        height: 48px; /* match the bar height for both button and anchor (Home). The anchor's height:100% doesn't resolve against the auto-height wrapper, so it was 1px taller/lower — that pushed Home's bottom line onto a fractional pixel and made it render thinner. Explicit height aligns both bottoms. */
+}
+
+
+  /* =====================================================================
+     Menu visual states (desktop) — hover + navigation-indicated states.
+     See scripts/docs/claude-conversations/2026-07-05-desktop-menu-visual-states-brief.md (private scripts repo)
+
+     "Active" (submenu open) is represented by
+       li:has(.sub-menu-container.visible-2l)
+     managed by taxanotes_community.js. These rules are additive:
+     .is-current-section / .is-active-page are set by js/menu-state.js.
+
+     Rules here use higher specificity than the plain :hover rules above,
+     so cascade order is not relied upon.
+     ===================================================================== */
+
+  /* Hover, non-active + non-indicated main item — tint text + chevron */
+  .main-menu-item-container > li:not(:has(.sub-menu-container.visible-2l)):not(.is-current-section):hover button.main_nav_link > span,
+  .main-menu-item-container > li:not(:has(.sub-menu-container.visible-2l)):not(.is-current-section):hover a.main_nav_link {
+    color: var(--hover-tint);
+  }
+  .main-menu-item-container > li:not(:has(.sub-menu-container.visible-2l)):not(.is-current-section):hover .navigation__link__down-icon {
+    fill: var(--hover-tint);
+    stroke: var(--hover-tint);
+  }
+  /* Search magnifier icon — stroke-only (fill="none"), so match text/chevron
+     on hover via stroke to avoid filling the glass. */
+  .main-menu-item-container > li:not(:has(.sub-menu-container.visible-2l)):not(.is-current-section):hover .search-menu-icon {
+    stroke: var(--hover-tint);
+  }
+
+  /* Hover, active (submenu open) main item — accent-dark text + chevron.
+     Applies whether or not the item is navigation-indicated. */
+  .main-menu-item-container > li:has(.sub-menu-container.visible-2l):hover button.main_nav_link > span,
+  .main-menu-item-container > li:has(.sub-menu-container.visible-2l):hover a.main_nav_link {
+    color: var(--accent-dark);
+  }
+  .main-menu-item-container > li:has(.sub-menu-container.visible-2l):hover .navigation__link__down-icon {
+    fill: var(--accent-dark);
+    stroke: var(--accent-dark);
+  }
+
+  /* Navigation-indicated main item, non-active — bold, full white. */
+  .main-menu-item-container > li.is-current-section:not(:has(.sub-menu-container.visible-2l)) button.main_nav_link > span,
+  .main-menu-item-container > li.is-current-section:not(:has(.sub-menu-container.visible-2l)) a.main_nav_link {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* Navigation-indicated main item, non-active, hover — tint text + chevron
+     (bold retained). Mirrors the base rule above + :hover for higher
+     specificity so it wins over the white above. */
+  .main-menu-item-container > li.is-current-section:not(:has(.sub-menu-container.visible-2l)):hover button.main_nav_link > span,
+  .main-menu-item-container > li.is-current-section:not(:has(.sub-menu-container.visible-2l)):hover a.main_nav_link {
+    color: var(--hover-tint);
+  }
+  .main-menu-item-container > li.is-current-section:not(:has(.sub-menu-container.visible-2l)):hover .navigation__link__down-icon {
+    fill: var(--hover-tint);
+    stroke: var(--hover-tint);
+  }
+
+  /* Navigation-indicated main item, active (submenu open) — bold accent-dark
+     text + chevron, persistently (not only on hover). Overrides the generic
+     active brand green text/chevron rules (extra .is-current-section class
+     wins on specificity). Background (white) still comes from the existing
+     active rules. */
+  .main-menu-item-container > li.is-current-section:has(.sub-menu-container.visible-2l) button.main_nav_link > span,
+  .main-menu-item-container > li.is-current-section:has(.sub-menu-container.visible-2l) a.main_nav_link {
+    font-weight: 700;
+    color: var(--accent-dark);
+  }
+  .main-menu-item-container > li.is-current-section:has(.sub-menu-container.visible-2l) .navigation__link__down-icon {
+    fill: var(--accent-dark);
+    stroke: var(--accent-dark);
+  }
+
+  /* Navigation-indicated bottom line — persists in all indicated states.
+     Anchored on the .main_nav_link (the clickable rectangle), NOT the <li>:
+     the <li> is the containing block target for .sub-menu-container, so making
+     the <li> positioned would break the full-width dropdown. The link is a
+     sibling of .sub-menu-container, so positioning it is safe. */
+  .main-menu-item-container > li.is-current-section .main_nav_link {
+    position: relative;
+  }
+  .main-menu-item-container > li.is-current-section .main_nav_link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;                 /* flush with the bottom of the header / submenu top */
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: #ffffff;       /* white for indicated non-active (on brand green bar) */
+    border-radius: 1.5px;
+    pointer-events: none;
+  }
+
+  /* Indicated non-active, hover — line goes tint to match the tint text.
+     (:hover raises specificity over the white base rule.) */
+  .main-menu-item-container > li.is-current-section:not(:has(.sub-menu-container.visible-2l)):hover .main_nav_link::after {
+    background: var(--hover-tint);
+  }
+
+  /* Indicated + active (submenu open) — line switches to accent-dark,
+     which reads on the off-white active background. */
+  .main-menu-item-container > li.is-current-section:has(.sub-menu-container.visible-2l) .main_nav_link::after {
+    background: var(--accent-dark);
+  }
+
+  /* Navigation-indicated sub-menu item (incl. "View All" first-link) —
+     accent-dark background, off-white text. Specificity (0,3,1) beats the
+     existing default sub-item rules. */
+  .sub-menu-container .sub-menu-item.is-active-page > a {
+    background-color: var(--accent-dark);
+    color: #ffffff; /* pure white for AAA (7.65:1) on accent-dark */
+  }
+  /* Hover reverts to the standard sub-item hover (brand green bg, white text).
+     (0,4,1) beats the non-hover rule above so it wins on hover. */
+  .sub-menu-container .sub-menu-item.is-active-page > a:hover {
+    background-color: var(--brand);
+    color: #ffffff;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     DESKTOP NO-JS SUBMENUS (2026-08 brief §6)
+     Without JS nothing sets the inline visibility/opacity on submenus, so
+     first pin the closed state, then reveal on :hover / :focus-within of the
+     .main-menu-item-wrapper (which contains both the button and its
+     .sub-menu-container). :focus-within keeps the submenu open while Tab
+     moves through its links, covering keyboard users. The nav bar keeps its
+     fixed 48px height, so the panel overlays the page like a classic
+     dropdown. Selector specificity ((0,4,1)+) beats the .hidden-2l
+     !important rules above.
+     ═══════════════════════════════════════════════════════════════════════ */
+  html:not(.js) .sub-menu-container.hidden-2l {
+    visibility: hidden;
+    opacity: 0;
+    transition: none;
+  }
+
+  html:not(.js) .main-menu-item-wrapper:hover .sub-menu-container.hidden-2l,
+  html:not(.js) .main-menu-item-wrapper:focus-within .sub-menu-container.hidden-2l {
+    top: 48px !important;
+    visibility: visible;
+    opacity: 1;
+    z-index: 100;
+  }
+
+  /* The white full-width backdrop normally comes with .visible-2l. */
+  html:not(.js) .main-menu-item-wrapper:hover .sub-menu-container.hidden-2l::before,
+  html:not(.js) .main-menu-item-wrapper:focus-within .sub-menu-container.hidden-2l::before {
+    background-color: var(--submenu-bg, #fff);
+  }
+
+}
+
+@media screen and (min-width: 1200px) {
+    .sub-menu-item-container {
+      columns: 6;
+  }
+
+  span.sub-menu-item.first-link {
+  width: calc(16%);
+}
+}
+
+@media screen and (max-width: 1199px) {
+    .sub-menu-item-container {
+      columns: 4;
+  }
+
+  span.sub-menu-item.first-link {
+  width: calc(23.5%);
+}
+}

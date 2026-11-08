@@ -1,0 +1,868 @@
+@media (max-width: 799px) {
+
+  header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #mast-head {
+    width: 15em;
+    padding-left: 1.4em;
+    /*padding-top: 1em;*/
+  }
+
+  #txn-logo {
+    display: block;
+    /*
+    display:inline-block;
+    float:left;
+    */
+  }
+
+  #txn-prim-menu {
+    display: block;
+    /*
+    display:inline-block;
+    float:left; 
+    */
+  }
+
+  #txn-srch {
+    display: block;
+    /*
+    display:inline-block;
+    float:left; 
+    */
+  }
+
+  #txn-header {
+    /*clear: both;*/
+    width: 100%;
+    /*height: 100px;*/
+    opacity: 1.0;
+    z-index: 10;
+    background-color: var(--brand);
+  }
+
+  main {
+    clear: both;
+  }
+
+  /* credit: BBC iPlayer - well I pay my license fee to the glorious corporation. "It's Your BBC" */
+  .sub-menu-container.animated {
+    /*
+    transition-property: top;
+    -webkit-transition-property: top;
+    transition-timing-function:
+      ease;
+    -webkit-transition-timing-function:
+      ease;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    */
+    /*height: 64px; */
+  }
+
+  nav[role=navigation].animation {
+    /*
+    transition-property: height;
+    -webkit-transition-property: height;
+    transition-timing-function:
+      ease;
+    -webkit-transition-timing-function:
+      ease;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    */
+    /*height: 64px; */
+  }
+
+  nav[role=navigation] {}
+
+  .main-menu-item-container>li {
+    display: block;
+    white-space: nowrap;
+    width: 150px;
+  }
+
+  .main-menu-item-container {
+    display: block;
+  }
+
+  /*
+  .main-menu-item-container {
+    display: inline-block;
+    column-count: 3;
+    width: 200px;
+  }
+
+  .sub-menu-item-container {
+    flex-direction: row;
+    position: relative;
+    height: 64px;
+    columns: 6;
+    width: auto;
+    z-index: -2;
+
+  }
+  */
+
+  .sub-menu-container {
+    /* width: 100%; */
+    /*right: 250px; */
+    /*
+    right: 0px;
+    position: absolute;
+    z-index: -2;
+    */
+    /*height: 100%;*/
+  }
+
+  /*
+  .sub-menu-container.visible {
+    visibility: visible;
+    display: initial;
+  }
+
+  .sub-menu-container.hidden-2l {
+    visibility: hidden;
+    display: initial;
+
+  }
+    */
+
+  .txn-menu-main-ul {
+    background: var(--brand);
+  }
+
+  .sub-menu-container.visible {
+    visibility: initial;
+    display: block;
+  }
+
+  .sub-menu-container.hidden-2l {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    /* Keyboard a11y (2026-08 brief §5): closed submenus leave the tab order.
+       taxanotes_community.js keeps .visible-2l on during the collapse animation and
+       only swaps to .hidden-2l afterwards, so this doesn't cut the animation
+       short. */
+    visibility: hidden;
+  }
+
+  .sub-menu-item-container > li {
+    padding-bottom: 0;
+  }
+
+  /* Mobile submenu slide animation */
+  .sub-menu-container {
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+  }
+
+  .main-menu-item-container > li {
+    padding-bottom: 0;
+    width:100%;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     PUSH-DOWN MENU (2026-07-20 mobile menu brief)
+     The nav lives in normal document flow inside <header>, so opening it pushes
+     the page content down rather than covering it (the old blanket-cover
+     "overlay" mode is preserved but deactivated lower down in this file). The
+     menu's height is animated with the grid 0fr↔1fr auto-height technique on
+     .main-menu-wrap: its single child <ul> collapses to 0 when closed and grows
+     to its content height when open. Because the 1fr track tracks content
+     height, the nav also animates smoothly as a submenu expands within it — no
+     JS height measuring needed. Open/closed state is the .txn-mobile-menu-open
+     class that taxanotes_community.js toggles on the <nav>.
+     ═══════════════════════════════════════════════════════════════════════ */
+  .main-menu-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease-out;
+    overflow: hidden;
+  }
+  nav[role="navigation"].txn-mobile-menu-open .main-menu-wrap {
+    grid-template-rows: 1fr;
+  }
+  /* The single grid child (the menu <ul>) must be free to collapse to 0. */
+  .main-menu-wrap > .main-menu-item-container {
+    min-height: 0;
+    overflow: hidden;
+    /* Keyboard a11y (2026-08 brief §5): a collapsed menu must not keep its
+       links in the tab order. visibility flips to hidden AFTER the collapse
+       animation (0.28s delay) and back instantly on open. */
+    visibility: hidden;
+    transition: visibility 0s 0.28s;
+  }
+  nav[role="navigation"].txn-mobile-menu-open .main-menu-wrap > .main-menu-item-container {
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  /* Mobile submenu scroll fade indicators */
+  .sub-menu-container.visible-2l {
+    position: relative;
+  }
+
+  /* Scroll affordance (2026-08 brief §2): dark gradients instead of white,
+     rendered by CSS whenever the submenu overflows so they're present from
+     the first frame of the reveal (taxanotes_community.js adds .has-overflow BEFORE
+     the open animation starts — no setTimeout, no flash). Show/hide is an
+     opacity toggle so the scrolled-to-bottom "you've seen everything" state
+     fades out rather than popping. */
+
+  /* Top fade - sticky so it stays at the top while scrolling; only visible
+     once the user has scrolled down. */
+  .sub-menu-container.visible-2l.has-overflow::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 48px;
+    margin-bottom: -48px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms;
+    z-index: 10;
+    display: block;
+  }
+  .sub-menu-container.visible-2l.has-overflow.scrolled-down::before {
+    opacity: 1;
+  }
+
+  /* Bottom fade - sticky at the bottom; approximately one item height. The
+     half-cut-off last item plus this darkening communicate "scroll for more".
+     Disappears when scrolled to the bottom. Slightly darker than the top
+     fade (0.4 vs 0.3): at equal alpha the bottom fade reads lighter because
+     its darkest band sits over text rather than row gaps. */
+  .sub-menu-container.visible-2l.has-overflow::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 48px;
+    margin-top: -48px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 150ms;
+    z-index: 10;
+    display: block;
+  }
+  .sub-menu-container.visible-2l.has-overflow.scrolled-to-bottom::after {
+    opacity: 0;
+  }
+
+  /* Viewport-edge scroll affordance (2026-08-16 follow-up): the sticky fades
+     above signal "this panel scrolls internally", but the open panel can
+     ALSO be truncated by the viewport itself when the page is scrolled. These
+     two fixed overlays pin the same gradient to the screen's top/bottom edge;
+     taxanotes_community.js shows one only while the open submenu actually crosses
+     that edge (elements are created and toggled by updateViewportFades).
+     Scoped to the submenu because the dark fade reads on its warm-grey
+     background — over the dark-blue main items it would be near-invisible. */
+  .txn-viewport-fade {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms;
+    z-index: 50;
+  }
+  .txn-viewport-fade--top {
+    top: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+  .txn-viewport-fade--bottom {
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  }
+  .txn-viewport-fade.is-visible {
+    opacity: 1;
+  }
+
+  /* Adjust gradient colors for dark backgrounds */
+  /* If your mobile menu overlay is dark, use these instead: */
+  /*
+  .txn-overlay-menu-bg .sub-menu-container.visible-2l::after {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.95));
+  }
+  
+  .txn-overlay-menu-bg .sub-menu-container.visible-2l::before {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.95));
+  }
+  */
+
+  /* Bigger mobile text (chevrons auto-scale via 1em units) */
+
+  /* Submenu items: 80% of main menu size */
+
+  .sub-menu-item-container a,
+  .sub-menu-container a.first-link {
+   /* padding-left: 0.3em; */
+  }
+
+  /* Left-edge fix (brief §3): no left indent on the submenu wrapper so each
+     sub-item row fills to the screen edge; the row's own 16px anchor padding
+     provides the text inset. */
+  .sub-menu-items-outer-container {
+  padding-left: 0;
+  padding-top: 0;
+  }
+
+  .sub-menu-container a.first-link {
+    text-decoration: none;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MOBILE MENU VISUAL STATES (2026-07-20 brief)
+
+     Selector map (see templates/navigation/menu--main.html.twig):
+       main menu row          .main-menu-item-container > li
+       main link (row fill)   .main_nav_link   (button = section parent with
+                                                 submenu, a = Home/direct link)
+       main link text         .main_nav_link  and its optional > span
+       chevron                .navigation__link__down-icon
+       ACTIVE (submenu open)  .main_nav_link.navigation__link--selected  (added
+                                                 by taxanotes_community.js)
+       NAV-INDICATED section  li.is-current-section          (menu-state.js)
+       sub-menu row / link    .sub-menu-item > a   (direct child; main links are
+                                                 span > wrapper > button so they
+                                                 are NOT matched by this)
+       NAV-INDICATED page     .sub-menu-item.is-active-page   (menu-state.js)
+
+     Hover rules are gated behind @media (hover: hover) so touch devices don't
+     get stuck in a hover state after a tap.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Full-width tap targets ── the whole row is clickable, not just the text.
+     Element-qualified to beat menu-common.css `button.main_nav_link { width:auto;
+     padding:0 12px; height:100% }` (0,1,1). */
+  a.main_nav_link,
+  button.main_nav_link {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    min-height: 48px;   /* exceeds WCAG 2.5.5 minimum of 44px */
+    height: auto;       /* override menu-common.css height: 100% */
+  }
+  /* Remove the browser-default <ul> left indent (40px) — menu-common.css only
+     resets it on the sub-menu <ul>. Without this, every row (and the left-border
+     indicator) is pushed off the screen's left edge. */
+  ul.main-menu-item-container {
+    padding-inline-start: 0;
+    padding-left: 0;
+    margin: 0;
+  }
+  .sub-menu-item-container a,
+  .sub-menu-container a.first-link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    min-height: 44px;
+  }
+  /* Let the interactive child fill its row edge to edge. */
+  .main-menu-item-container > li > .sub-menu-item,
+  .main-menu-item-wrapper {
+    display: block;
+    width: 100%;
+  }
+
+  /* ── Dividers ── */
+  /* Main items: semi-transparent white reads as a hairline on brand green. */
+  .main-menu-item-container > li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  /* Sub items (incl. the "View All" first-link): light grey on off-white. */
+  .sub-menu-item-container > li,
+  .sub-menu-container .sub-menu-item.first-link {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /* ── Submenu background: warm grey (matching desktop) ── */
+  .sub-menu-container.visible,
+  .sub-menu-container.visible-2l {
+    background-color: var(--warm-grey);
+  }
+
+  /* ═══ MAIN MENU ITEM STATES ═══ */
+
+  /* (1) Default — white text + white chevron on brand green.
+     Element-qualified so it beats menu-common.css's
+     `button.main_nav_link > span { color: rgb(16,60,96) }` (0,1,2) and
+     `a.main_nav_link { color: inherit }` (0,1,1). The chevron's <path> uses
+     fill="currentColor", so the chevron follows the link's `color`; fill/stroke
+     are pinned to currentColor here once and every state simply sets `color`. */
+  a.main_nav_link,
+  button.main_nav_link,
+  button.main_nav_link > span {
+    color: #ffffff;
+    transition: color 0.15s, background-color 0.15s;
+  }
+  .navigation__link__down-icon {
+    fill: currentColor;
+    stroke: currentColor;
+  }
+  .search-menu-icon {
+    stroke: currentColor;
+  }
+
+  /* (3) Active (submenu open) — brand green text on a white row. */
+  .main_nav_link.navigation__link--selected,
+  .main_nav_link.navigation__link--selected > span {
+    color: var(--brand);
+    background-color: #ffffff;
+  }
+  .main_nav_link.navigation__link--selected .navigation__link__down-icon {
+    fill: var(--brand);
+    stroke: var(--brand);
+  }
+
+  /* (5) Nav-indicated, non-active — bold white text + 4px white left border. */
+  .is-current-section {
+    border-left: 4px solid #ffffff;
+  }
+  .is-current-section .main_nav_link,
+  .is-current-section .main_nav_link > span {
+    font-weight: 700;
+  }
+  /* Compensate for the 4px border so text doesn't shift. */
+  .is-current-section .main_nav_link {
+    padding-left: 12px;
+  }
+
+  /* (7) Nav-indicated, active — bold accent text + accent border on white. */
+  .is-current-section:has(.main_nav_link.navigation__link--selected) {
+    border-left-color: var(--accent);
+  }
+  .is-current-section .main_nav_link.navigation__link--selected,
+  .is-current-section .main_nav_link.navigation__link--selected > span {
+    color: var(--accent);
+  }
+  .is-current-section .main_nav_link.navigation__link--selected .navigation__link__down-icon {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  @media (hover: hover) {
+    /* (2) Hover, non-active, non-indicated — tint text + chevron. */
+    .main_nav_link:not(.navigation__link--selected):hover,
+    .main_nav_link:not(.navigation__link--selected):hover > span {
+      color: var(--hover-tint);
+    }
+    .main_nav_link:not(.navigation__link--selected):hover .navigation__link__down-icon {
+      fill: var(--hover-tint);
+      stroke: var(--hover-tint);
+    }
+    .main_nav_link:not(.navigation__link--selected):hover .search-menu-icon {
+      stroke: var(--hover-tint);
+    }
+
+    /* (4) Active + hover (non-indicated) — accent dark. */
+    .main_nav_link.navigation__link--selected:hover,
+    .main_nav_link.navigation__link--selected:hover > span {
+      color: var(--accent-dark);
+    }
+    .main_nav_link.navigation__link--selected:hover .navigation__link__down-icon {
+      fill: var(--accent-dark);
+      stroke: var(--accent-dark);
+    }
+
+    /* (6) Nav-indicated, non-active + hover — tint text, chevron and border. */
+    .is-current-section:has(.main_nav_link:not(.navigation__link--selected):hover) {
+      border-left-color: var(--hover-tint);
+    }
+    .is-current-section .main_nav_link:not(.navigation__link--selected):hover,
+    .is-current-section .main_nav_link:not(.navigation__link--selected):hover > span {
+      color: var(--hover-tint);
+    }
+    .is-current-section .main_nav_link:not(.navigation__link--selected):hover .navigation__link__down-icon {
+      fill: var(--hover-tint);
+      stroke: var(--hover-tint);
+    }
+
+    /* (8) Nav-indicated, active + hover — stays accent (no hover change). */
+    .is-current-section .main_nav_link.navigation__link--selected:hover,
+    .is-current-section .main_nav_link.navigation__link--selected:hover > span {
+      color: var(--accent);
+    }
+    .is-current-section .main_nav_link.navigation__link--selected:hover .navigation__link__down-icon {
+      fill: var(--accent);
+      stroke: var(--accent);
+    }
+  }
+
+  /* ═══ SUB-MENU ITEM STATES ═══ */
+
+  /* (1) Default — brand green text on the warm-grey submenu. */
+  .sub-menu-item-container a,
+  .sub-menu-container a.first-link,
+  .sub-menu-container a {
+    color: var(--brand);
+  }
+
+  /* (3) Nav-indicated page — white text on accent dark. */
+  .sub-menu-item.is-active-page > a {
+    background-color: var(--accent-dark);
+    color: #ffffff;
+  }
+
+  @media (hover: hover) {
+    /* (2) Hover, non-indicated — inversion: white text on brand green. */
+    .sub-menu-item:not(.is-active-page):hover > a {
+      background-color: var(--brand);
+      color: #ffffff;
+    }
+    /* (4) Nav-indicated + hover — background to brand green, text stays white. */
+    .sub-menu-item.is-active-page:hover > a {
+      background-color: var(--brand);
+      color: #ffffff;
+    }
+  }
+
+  /* Move chevrons to the left via flex ordering */
+  .navigation__link__down-icon {
+    order: -1;
+  }
+
+  /* Swap span gap from right side to left side */
+  button.main_nav_link > span {
+    padding-right: 0;
+    padding-left: 0.2em;
+  }
+
+  /* Home alignment (2026-08 brief §1): chevron-less links (Home) pad their
+     text to the same left edge as the button items' text, which sits after
+     the row's 16px padding + 1em chevron + 0.2em span gap. */
+  a.main_nav_link {
+    padding-left: calc(16px + 1em + 0.2em);
+  }
+  /* Nav-indicated Home: the li's 4px left border shifts the row, so drop the
+     row padding to 12px like the button items ((0,2,1) beats the generic
+     .is-current-section .main_nav_link 12px rule at (0,2,0)). */
+  .is-current-section a.main_nav_link {
+    padding-left: calc(12px + 1em + 0.2em);
+  }
+
+  /* Move magnifying glass to the right of "Search" text on mobile */
+  .search-menu-icon {
+    order: 1;
+    margin-right: 0;
+    margin-left: 0.3em;
+  }
+
+  .navigation__link__down-icon {
+    height: 0.8em;
+  }
+
+
+
+
+/*
+
+https://stackoverflow.com/questions/79791175/how-to-stop-tap-highlight-blink-on-sub-menu-items-and-only-have-it-for-top-menu
+
+*/
+
+/* Remove pointer events from the LI containers so they don't get tap highlights */
+/*
+.main-menu-item-container > li {
+    pointer-events: none;
+}
+*/
+/* Re-enable pointer events on the interactive children */
+/*
+.main-menu-item-container > li > button.main_nav_link {
+    pointer-events: auto;
+}
+*/
+
+/* Ensure the entire submenu and its contents are interactive */
+/*
+.sub-menu-container,
+.sub-menu-container * {
+    pointer-events: auto;
+}
+*/
+
+/* Burger menu - adjusted for brand green background */
+
+.txn-togl-expand {
+  color: rgba(255, 255, 255, 0.85);
+  transition: all .5s ease-in-out;
+  display: inline-block;
+  text-decoration: none;
+  position: absolute;
+  /* Symmetric header insets (2026-08-16 follow-up): the submenu carets sit
+     16px from the screen's left edge; the logo shares that left inset (see
+     #txn-logo below) and the toggle mirrors it on the right, so logo and
+     toggle read as visually separate, symmetrically aligned bookends. */
+  right: 16px;
+  /* One position for BOTH toggle states (2026-08 brief §4, revised): high
+     enough that the icon plus two 16px text lines (CLOSE / MENU when open)
+     sit centred in the 96px logo band — icon 24px + 6px gap + 32px text
+     ≈ 62px, so (96 − 62) / 2 ≈ 17px. The icon and first text line never
+     move when toggling; the open state just adds its second line below. */
+  top: 17px;
+  text-align: center;
+}
+
+/* Logo left inset: the VISIBLE artwork sits 16px from the screen edge,
+   matching the toggle's right: 16px so the two are balanced bookends.
+   logo.svg has transparent padding baked into the artwork — its first opaque
+   pixel is at column 107 of 1920, which at the fixed 262.4px rendered width
+   is ~14.6px of invisible lead-in — so the box gets 16 − 14.6 ≈ 1.4px. If
+   the logo asset or its rendered size ever changes, re-derive this value. */
+#txn-logo {
+  padding-left: 16px;
+}
+
+.txn-togl-expand:hover {
+  color: #fff;
+}
+
+.txn-togl-expand .menu-icon {
+  display: inline-block;
+  position: relative;
+  height: 24px;
+  width: 30px;
+  transition: all .3s ease-in-out;
+}
+
+.txn-togl-expand .menu-icon:hover {
+  cursor: pointer;
+}
+
+.txn-togl-expand .menu-icon span {
+  background: rgba(255, 255, 255, 0.85);
+  display: block;
+  height: 4px;
+  width: 30px;
+  position: absolute;
+  transition: all .3s ease-in-out;
+}
+
+.txn-togl-expand .menu-icon span.top {
+  top: 0;
+}
+
+.txn-togl-expand .menu-icon span.middle {
+  top: 10px;
+}
+
+.txn-togl-expand .menu-icon span.bottom {
+  top: 20px;
+}
+
+.txn-togl-expand .menu-text {
+  color: rgba(255, 255, 255, 0.85);
+  transition: all .3s ease-in-out;
+}
+
+.txn-togl-expand .menu-text .icon-burger {
+  display: block;
+}
+
+.txn-togl-expand .menu-text .icon-close {
+  display: none;
+}
+
+/* Hover states */
+.txn-togl-expand:hover .menu-icon span {
+  background: #fff;
+}
+
+.txn-togl-expand:hover .menu-text {
+  color: #fff;
+}
+
+/* Open state */
+.txn-togl-expand.txn-togl-expand--open .menu-icon span {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.txn-togl-expand.txn-togl-expand--open .menu-icon span.top {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.txn-togl-expand.txn-togl-expand--open .menu-icon span.middle {
+  opacity: 0;
+}
+
+.txn-togl-expand.txn-togl-expand--open .menu-icon span.bottom {
+  top: 10px;
+  transform: rotate(-45deg);
+}
+
+.txn-togl-expand.txn-togl-expand--open .menu-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.txn-togl-expand.txn-togl-expand--open .menu-text .icon-burger {
+  display: none;
+}
+
+.txn-togl-expand.txn-togl-expand--open .menu-text .icon-close {
+  display: block;
+}
+
+/* Close label (2026-08 brief §4, revised): when open the toggle reads ✕ /
+   CLOSE / MENU on three centred lines, at the same font size as the closed
+   state's MENU. The button keeps ONE position for both states — it is
+   anchored high enough (top, above) that two lines of text fit below the
+   icon, so toggling never moves the icon or the text's first line. */
+.txn-togl-expand .icon-close .icon-close-line {
+  display: block;
+}
+
+.txn-togl-expand.txn-togl-expand--open:hover .menu-icon span {
+  background: #fff;
+}
+
+.txn-togl-expand.txn-togl-expand--open:hover .menu-text {
+  color: #fff;
+}
+
+/* ── LEGACY OVERLAY MODE (preserved, deactivated) ──
+   The original mobile menu covered the page with a full-viewport blanket
+   (body height:100vh + overflow:hidden, header height:100vh). The 2026-07-20
+   brief replaced this with the push-down behaviour above. These rules are kept
+   for a possible future contrib module that switches modes via a
+   data-mobile-menu-mode="overlay" attribute; taxanotes_community.js no longer adds
+   .txn-overlay-menu-bg / .txn-overlay-hdr-hgt-togl-expand-mob-menu, so they
+   are inert. Do not delete without also removing the overlay path from the JS. */
+.txn-overlay-menu-bg {
+  background-color: var(--brand);
+  transition: all .5s ease-in-out;
+  z-index: 100;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.txn-overlay-hdr-hgt-togl-expand-mob-menu {
+  height: 100vh;
+}
+
+.txn-hdr-hgt-init {
+  height: auto;
+}
+
+/* Force scrollbar to be visible on mobile */
+.sub-menu-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sub-menu-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sub-menu-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.sub-menu-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+
+
+
+/* Mobile submenu indentation - beneath main items, slightly more to the right */
+
+  ul.sub-menu-item-container {
+
+  }
+
+  /* Left-edge fix (brief §3): "View All" first-link also fills to the edge;
+     its 16px anchor padding (set with the tap-target rules) insets the text. */
+  .sub-menu-container > a.first-link {
+    padding-inline-start: 0;
+  }
+
+  .navigation__link__down-icon {
+    height: 0.8em;
+    width: 1em;
+  }
+
+
+
+  .sub-menu-item-container {
+      columns: 1;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     NO-JS FALLBACK MENU (2026-08 brief §6)
+     Native <details>/<summary> menu rendered from the same menu tree in
+     menu--main.html.twig. Only shown when JS is absent at mobile widths —
+     the show/hide switching rules live in menu-common.css (they need to
+     apply outside this media query too). Minimal styling: usable, on-brand,
+     no animations.
+     ═══════════════════════════════════════════════════════════════════════ */
+  html:not(.js) .mobile-menu-noscript {
+    background: var(--brand);
+    padding: 0.5rem 0;
+  }
+
+  html:not(.js) .mobile-menu-noscript > a,
+  html:not(.js) .mobile-menu-noscript summary {
+    display: block;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    min-height: 44px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+
+  html:not(.js) .mobile-menu-noscript details ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: var(--warm-grey);
+  }
+
+  html:not(.js) .mobile-menu-noscript details li a,
+  html:not(.js) .mobile-menu-noscript details li span {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px 16px;
+    min-height: 44px;
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+}

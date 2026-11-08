@@ -1,0 +1,29 @@
+uuid: 2fca35e9-e389-4894-9d0a-af2228b8beab
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.map_of_city_town_for_each_member
+  module:
+    - system
+    - views
+  theme:
+    - taxanotes_community
+id: taxanotes_community_views_block__map_of_city_town_for_each_member
+theme: taxanotes_community
+region: content
+weight: 5
+provider: null
+plugin: 'views_block:map_of_city_town_for_each_member-map_of_city_town_for_each_member_block'
+settings:
+  id: 'views_block:map_of_city_town_for_each_member-map_of_city_town_for_each_member_block'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: 48
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'
