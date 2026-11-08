@@ -10,14 +10,14 @@ this theme's overrides.
 
 | Part | Where |
 |---|---|
-| the header band: the Taxanotes mark (inline SVG, `currentColor`) and the wordmark "taxanotes" in Cabin, both a link home | `templates/block/block--system-branding-block.html.twig`, `css/content.css` (`.txn-brand`) |
+| the header band: the Taxanotes mark (inline SVG, `currentColor`) and the wordmark "taxanotes" in IBM Plex Sans, both a link home | `templates/block/block--system-branding-block.html.twig`, `css/content.css` (`.txn-brand`) |
 | the main menu bar; each section opens a drawer under the bar (desktop, 800px and up) or an accordion row (phones); a section whose parent has no page of its own (`route:<nolink>`) leads its panel with a heading, one with a page leads it with a link; the Search item is appended by the template when the Search module is on and opens the search form placed in the `search` region | `templates/navigation/menu--main.html.twig`, `js/taxanotes_community.js`, `css/menu-common.css`, `css/menu-desktop.css`, `css/menu-mobile.css` |
 | the current section and page marked in the menu (bold, bottom line on desktop; left border on phones; the page in the accent colour) | `js/menu-state.js` |
 | keyboard focus (orange marker, `:focus-visible` only), Escape closes panels, the phone menu's focus management | `css/menu-focus.css`, `js/taxanotes_community.js` |
 | without JavaScript: a `<details>` menu on phones, hover/focus-within drawers on desktop, a plain link to the search page | `templates/navigation/menu--main.html.twig`, `css/menu-common.css` |
 | the content column, account links, breadcrumb, messages, tabs, forms, tables (the forum), comments, the footer | `css/content.css`, `templates/layout/page.html.twig` |
 | Drupal's bare pages (log in, register, reset password, 404, 403) given a heading, an intro and a box | `taxanotes_community.theme` (`_taxanotes_community_system_page()`), `css/system-pages.css` |
-| the Cabin typeface (SIL Open Font License 1.1, `fonts/Cabin/OFL.txt`), variable weight 400–700, one file per script subset, named by the `--font-family` token | `css/fonts.css`, `fonts/Cabin/` |
+| the IBM Plex Sans typeface (SIL Open Font License 1.1, `fonts/IBMPlexSans/OFL.txt`), variable weight 100–700, one file per script subset, named by the `--font-family` token | `css/fonts.css`, `fonts/IBMPlexSans/` |
 | the colours as tokens: `--brand` (header, footer, menu bar), `--brand-light` (the mark's green), `--accent` (current page, link underlines), `--hover-tint` | `css/elements.css` |
 | the favicon set (ICO, SVG, PNG, Apple touch icon), all the mark | `favicon.ico`, `favicon.svg`, `images/`, `taxanotes_community_page_attachments_alter()` |
 

@@ -33,8 +33,9 @@
  *               ul.sub-menu-item-container
  *                 > li > span.sub-menu-item > a     (sub-menu items)
  *
- * Section URL for a mega-menu parent (which has no href of its own) is taken
- * from its "View All" first-link. Search has no navigable href and is skipped.
+ * A mega-menu parent has no href of its own: its section is current when any
+ * of its panel links (the first-link included) matches the current path.
+ * Search has no navigable href and is skipped.
  */
 (function () {
   'use strict';
@@ -80,27 +81,24 @@
         return;
       }
 
-      // Section URL: a direct link (Home etc.) if present, otherwise the
-      // "View All" first-link of a mega-menu parent. Using the anchor's
+      // Section URL: a direct link (Home etc.) if present. Using the anchor's
       // .pathname (rather than the raw href) normalises relative/absolute and
       // any base path, matching window.location.pathname.
       var directLink = li.querySelector('.main-menu-item-wrapper > a.main_nav_link');
-      var firstLink = li.querySelector('.sub-menu-container .first-link a');
-      var sectionAnchor = directLink || firstLink;
       var subAnchors = li.querySelectorAll(
         '.first-link a, .sub-menu-item-container a'
       );
 
-      if (sectionAnchor) {
-        var sectionPath = normalizePath(sectionAnchor.pathname);
+      if (directLink) {
+        var sectionPath = normalizePath(directLink.pathname);
         if (!pathMatches(currentPath, sectionPath)) {
           return;
         }
       }
       else {
-        // A section heading without a page of its own (taxanotes.org's
-        // sections are route:<nolink>): the section is current when one of
-        // its children is.
+        // A panel parent has no page of its own (taxanotes.org's sections
+        // are route:<nolink>; the panel's first-link is its first child):
+        // the section is current when one of its links is.
         var anyChild = Array.prototype.some.call(subAnchors, function (anchor) {
           return pathMatches(currentPath, normalizePath(anchor.pathname));
         });

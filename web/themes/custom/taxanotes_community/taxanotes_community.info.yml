@@ -1,6 +1,6 @@
 name: 'Taxanotes community'
 type: theme
-description: 'The theme of taxanotes.org, the Taxanotes community site: the Taxanotes mark and wordmark in a green header band, the expanding main menu (a drawer under the menu bar on desktop, a push-down menu on phones, with keyboard and no-JavaScript fallbacks), the Cabin typeface (SIL OFL, self-hosted). Derived from the customsolent theme of The Solent Metropolitan by the same author; no base theme, the markup is core''s.'
+description: 'The theme of taxanotes.org, the Taxanotes community site: the Taxanotes mark and wordmark in a green header band, the expanding main menu (a drawer under the menu bar on desktop, a push-down menu on phones, with keyboard and no-JavaScript fallbacks), the IBM Plex Sans typeface (SIL OFL, self-hosted). Derived from the customsolent theme of The Solent Metropolitan by the same author; no base theme, the markup is core''s.'
 package: Taxanotes
 core_version_requirement: ^11
 base theme: false
