@@ -21,4 +21,8 @@ visibility:
   request_path:
     id: request_path
     negate: true
-    pages: '<front>'
+    pages: |-
+      <front>
+      /user/login
+      /user/register
+      /user/password
