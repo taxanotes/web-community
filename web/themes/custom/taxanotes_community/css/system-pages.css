@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════
-   Drupal's own bare pages: log in, reset password, 404, 403
+   Drupal's own bare pages: log in, reset password, contact, 404, 403
    (page.html.twig + _taxanotes_community_system_page()), and the
    maintenance page (maintenance-page.html.twig).
 
@@ -65,7 +65,8 @@
 
 .txn-system-page form input[type='text'],
 .txn-system-page form input[type='password'],
-.txn-system-page form input[type='email'] {
+.txn-system-page form input[type='email'],
+.txn-system-page form textarea {
   width: 100%;
   height: 2.6em;
   box-sizing: border-box;
@@ -78,7 +79,33 @@
   padding: 0.35em 0.5em;
 }
 
-.txn-system-page form input:focus-visible {
+.txn-system-page form textarea {
+  height: auto;
+  min-height: 10em;
+  resize: vertical;
+}
+
+/* The contact form's "Send yourself a copy" checkbox: box and label on one line. */
+.txn-system-page form .form-type-checkbox,
+.txn-system-page form .form-type--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.txn-system-page form .form-type-checkbox label,
+.txn-system-page form .form-type--checkbox label {
+  margin: 0;
+}
+
+.txn-system-page form input[type='checkbox'] {
+  width: 1.1em;
+  height: 1.1em;
+  accent-color: var(--brand);
+}
+
+.txn-system-page form input:focus-visible,
+.txn-system-page form textarea:focus-visible {
   outline: 3px solid #e8870e;
   outline-offset: 1px;
 }

@@ -27,7 +27,8 @@ function taxanotes_community_preprocess_html(array &$variables): void {
 }
 
 /**
- * Describes the current route if it is one of Drupal's own bare pages.
+ * Describes the current route if it is one of Drupal's own bare pages
+ * (and the site-wide contact form, which is as bare).
  *
  * These pages have no node, so they would render as unstyled form fields or
  * a lone sentence hard against the header. page.html.twig gives them a
@@ -71,6 +72,12 @@ function _taxanotes_community_system_page(): ?array {
         (string) t('User guide') => '/user-guide',
       ],
       'replace_content' => TRUE,
+    ],
+    'contact.site_page' => [
+      'key' => 'contact',
+      'title' => t('Contact'),
+      'intro' => t('A message to the Taxanotes maintainers. We reply by email, usually within a few days.'),
+      'links' => [],
     ],
     'system.403' => [
       'key' => '403',
@@ -202,5 +209,17 @@ function taxanotes_community_preprocess_pager(array &$variables): void {
       }
     }
     unset($item);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the site-wide contact form.
+ *
+ * One button, "Send message": the Preview step is more than a short message
+ * to the maintainers needs.
+ */
+function taxanotes_community_form_contact_message_feedback_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state): void {
+  if (isset($form['actions']['preview'])) {
+    $form['actions']['preview']['#access'] = FALSE;
   }
 }
