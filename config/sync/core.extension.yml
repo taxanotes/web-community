@@ -27,6 +27,7 @@ module:
   geolocation_leaflet: 0
   help: 0
   history: 0
+  honeypot: 0
   image: 0
   jquery_ui: 0
   jquery_ui_autocomplete: 0
